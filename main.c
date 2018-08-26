@@ -44,7 +44,7 @@ SDL_UpdateTexture(win->screen, NULL, win->buffer[0], WIDTH << 2);
 				for(int h = 0; h < WIDTH; h++)
 					win->buffer[j][h] = 0;
 SDL_RenderCopy(win->ren, win->screen, NULL, NULL);
-			printf("FPS:%d\n", 1000 /(SDL_GetTicks() - win->fps));
+			// printf("FPS:%d\n", 1000 /(SDL_GetTicks() - win->fps));
 		SDL_RenderPresent(win->ren);
 	}
 	SDL_DestroyRenderer(win->ren);

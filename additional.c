@@ -55,6 +55,10 @@ int		pifagor(t_main *win, float angle, char c)
 		powf(win->gg.p_y - win->ray.h_dot.pix_y, 2))) *\
 		ft_cos(win->gg.angle - angle));
 	}
+	else if (c == 'l')
+	{
+		return (((int)sqrt(powf(win->gg.p_x - win->l_p.x, 2) + powf(win->gg.p_y - win->l_p.y, 2))) * ft_cos(win->gg.angle - angle));
+	}
 	else
 		return (0);
 }

@@ -25,31 +25,41 @@
 // 	return 0; // No collision
 // }
 
-typedef struct s_pdd
+typedef struct s_pddd
 {
 	int first;
 	int second;
+}				pddd;
+
+typedef struct s_pdd
+{
+	int x1;
+	int y1;
+
+	int x2;
+	int y2;
 }				pdd;
 
-pdd make_pair(int x, int y)
+
+pddd make_pair(int x, int y)
 {
-	pdd var;
+	pddd var;
 	var.first = x;
 	var.second = y;
 	return (var);
 }
 
-pdd lineLineIntersection(pdd A, pdd B, pdd C, pdd D)
+pddd lineLineIntersection(pdd a, pdd b)
 {
     // Line AB represented as a1x + b1y = c1
-    double a1 = B.second - A.second;
-    double b1 = A.first - B.first;
-    double c1 = a1*(A.first) + b1*(A.second);
+    double a1 = a.y2 - a.y1;
+    double b1 = a.x1 - a.x2;
+    double c1 = a1*(a.x1) + b1*(a.y1);
  
     // Line CD represented as a2x + b2y = c2
-    double a2 = D.second - C.second;
-    double b2 = C.first - D.first;
-    double c2 = a2*(C.first)+ b2*(C.second);
+    double a2 = b.y2 - b.y1;
+    double b2 = b.x1 - b.x2;
+    double c2 = a2*(b.x1)+ b2*(b.y1);
  
     double determinant = a1*b2 - a2*b1;
 
@@ -71,20 +81,33 @@ int main(int zc, char **av)
 {
 	pdd A;
 	pdd B;
-	pdd C;
-	pdd D;
+	// pdd C;
+	// pdd D;
 
-	// A = make_pair(64, 64);
-	// B = make_pair(192, 256);
-	// C = make_pair(192, 64);
-	// D = make_pair(0, 256);
+A.x1 = atoi(av[1]);
+A.y1 = atoi(av[2]);
 
-	A = make_pair(atoi(av[1]), atoi(av[2]));
-	B = make_pair(atoi(av[3]), atoi(av[4]));
-	C = make_pair(atoi(av[5]), atoi(av[6]));
-	D = make_pair(atoi(av[7]), atoi(av[8]));
+A.x2 = atoi(av[3]);
+A.y2 = atoi(av[4]);
 
-	pdd res = lineLineIntersection(A, B, C, D);
+
+B.x1 = atoi(av[5]);
+B.y1 = atoi(av[6]);
+
+B.x2 = atoi(av[7]);
+B.y2 = atoi(av[8]);
+
+	// // A = make_pair(64, 64);
+	// // B = make_pair(192, 256);
+	// // C = make_pair(192, 64);
+	// // D = make_pair(0, 256);
+
+	// A = make_pair(atoi(av[1]), atoi(av[2]));
+	// B = make_pair(atoi(av[3]), atoi(av[4]));
+	// C = make_pair(atoi(av[5]), atoi(av[6]));
+	// D = make_pair(atoi(av[7]), atoi(av[8]));
+
+	pddd res = lineLineIntersection(A, B);
 	printf("X:%d\nY:%d\n", res.first, res.second);
 	// printf("%d\n", get_line_intersection(atoi(av[1]), atoi(av[2]), atoi(av[3]), atoi(av[4]), atoi(av[5]), atoi(av[6]), atoi(av[7]), atoi(av[8]), NULL, NULL));
 }

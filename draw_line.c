@@ -91,7 +91,7 @@ void	draw(int x, int y, t_main *win, int color)
 	draw_floor(x, y, win);
 }
 
-void	line_draw(t_main *win, int i, float h, int tex)
+void	casting_draw(t_main *win, int i, float h, int tex)
 {
 	int wall_x;
 

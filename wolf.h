@@ -53,6 +53,17 @@ typedef struct		s_mouse
 	int				y;
 }					t_mouse;
 
+/*
+** using t_mouse us structore for point
+*/
+typedef struct		s_lines
+{
+	int x1;
+	int y1;
+	int x2;
+	int y2;
+}					t_lines;
+
 typedef struct		s_img
 {
 	SDL_Surface		*tex[TEXTURES];
@@ -116,10 +127,8 @@ typedef struct		s_main
 	SDL_Renderer	*ren;
 	SDL_Event		e;
 	int				quit;
-	// unsigned int **bufer;
-unsigned int	buffer[HEIGHT][WIDTH];
-SDL_Texture		*screen;
-	
+	unsigned int	buffer[HEIGHT][WIDTH];
+	SDL_Texture		*screen;
 	t_data			*data;
 	t_ray			ray;
 	t_player		gg;
@@ -131,6 +140,8 @@ SDL_Texture		*screen;
 	float			rotate;
 	int				fps;
 int hy;
+t_lines				line;
+t_mouse				l_p;
 }					t_main;
 
 /*
@@ -188,7 +199,7 @@ void				texture_prepare(t_main *win);
 /*
 ** draw_line.c
 */
-void				line_draw(t_main *win, int i, float h, int tex);
+void				casting_draw(t_main *win, int i, float h, int tex);
 
 
 

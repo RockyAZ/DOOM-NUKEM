@@ -37,6 +37,10 @@ void	main_prepare(int ac, char **av, t_main **win)
 	cp_win->h_is = 0;
 	cp_win->keys.space = 0;
 	cp_win->quit = 0;
+	cp_win->line.x1 = 128;
+	cp_win->line.y2 = 128;
+	cp_win->line.x2 = 256;
+	cp_win->line.y2 = 256;
 	*win = cp_win;
 }
 
