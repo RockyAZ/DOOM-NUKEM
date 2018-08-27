@@ -13,6 +13,29 @@
 #include "wolf.h"
 
 
+int get_line_intersection(float p0_x, float p0_y, float p1_x, float p1_y, float p2_x, float p2_y, float p3_x, float p3_y, float *i_x, float *i_y)
+{
+	float s1_x, s1_y, s2_x, s2_y;
+	s1_x = p1_x - p0_x;
+	s1_y = p1_y - p0_y;
+
+	s2_x = p3_x - p2_x;
+	s2_y = p3_y - p2_y;
+
+	float s, t;
+	s = (-s1_y * (p0_x - p2_x) + s1_x * (p0_y - p2_y)) / (-s2_x * s1_y + s1_x * s2_y);
+	t = ( s2_x * (p0_y - p2_y) - s2_y * (p0_x - p2_x)) / (-s2_x * s1_y + s1_x * s2_y);
+	if (s >= 0 && s <= 1 && t >= 0 && t <= 1)
+	{
+		if (i_x != NULL)
+			*i_x = p0_x + (t * s1_x);
+		if (i_y != NULL)
+			*i_y = p0_y + (t * s1_y);
+		return 1;
+	}
+	return 0;
+}
+
 
 t_mouse lineLineIntersection(t_lines a, t_lines b)
 {
@@ -52,8 +75,8 @@ if (win->hy)
 write(1, "a", 1);
 		gg_line.x1 = win->gg.p_x;
 		gg_line.y1 = win->gg.p_y;
-		gg_line.x2 = win->ray.h_dot.pix_x;
-		gg_line.y2 = win->ray.h_dot.pix_y;
+		gg_line.x2 = win->ray.v_dot.pix_x;
+		gg_line.y2 = win->ray.v_dot.pix_y;
 	}
 	else
 	{
@@ -61,16 +84,18 @@ if (win->hy)
 write(1, "b", 1);
 		gg_line.x1 = win->gg.p_x;
 		gg_line.y1 = win->gg.p_y;
-		gg_line.x2 = win->ray.v_dot.pix_x;
-		gg_line.y2 = win->ray.v_dot.pix_y;
+		gg_line.x2 = win->ray.h_dot.pix_x;
+		gg_line.y2 = win->ray.h_dot.pix_y;
 	}
 	win->l_p = lineLineIntersection(gg_line, win->line);
 if (win->hy)
 {
-printf("GG_ANGLE:%f\nGG_POS_X:%f\nGG_POS_Y:%f\n"m win->gg.angle, win->gg.p_x, win->p_y);
+printf("GG_ANGLE:%f\nGG_POS_X:%f\nGG_POS_Y:%f\n", win->gg.angle, win->gg.p_x, win->gg.p_y);
 printf("ax1:%d ay1:%d ax2:%d ay2:%d bx1:%d by1:%d bx2:%d by2:%d \nX:%d\nY:%d\n\n", gg_line.x1, gg_line.y1, gg_line.x2, gg_line.y2, win->line.x1, win->line.y1, win->line.x2, win->line.y2, win->l_p.x, win->l_p.y);
 }
-	if (!win->l_p.x && !win->l_p.y)
+	if (win->l_p.x <= 0 || win->l_p.y <= 0 || win->l_p.x > win->data->col * CUBE || win->l_p.y > win->data->line * CUBE)
+		return (0);
+	if (!get_line_intersection(gg_line.x1, gg_line.y1, gg_line.x2, gg_line.y2, win->line.x1, win->line.y1, win->line.x2, win->line.y2, NULL, NULL))
 		return (0);
 	return (1);
 }
@@ -94,12 +119,8 @@ void	call_drawer(t_main *win, int i, int v, int h)
 {
 	if (win->h_is)
 		casting_draw(win, i, ((float)CUBE / (float)h) * win->gg.to_screen, win->data->map[win->ray.h_dot.real_y][win->ray.h_dot.real_x]);
-	else if (win->v_is)
-		casting_draw(win, i, ((float)CUBE / (float)v) * win->gg.to_screen,\
-		win->data->map[win->ray.v_dot.real_y][win->ray.v_dot.real_x]);
-	else
-		casting_draw(win, i, ((float)CUBE / (float)h) * win->gg.to_screen,\
-		win->data->map[win->ray.h_dot.real_y][win->ray.h_dot.real_x]);
+	else// if (win->v_is)
+		casting_draw(win, i, ((float)CUBE / (float)v) * win->gg.to_screen, win->data->map[win->ray.v_dot.real_y][win->ray.v_dot.real_x]);
 }
 
 void	ray_simple(t_main *win, float angle, int v, int h)
@@ -129,12 +150,18 @@ win->hy = 1;
 		else if (angle > 270 || angle < 90)
 			v = vertic_inter_right(win, angle);
 		set_param(win, v, h);
+if (win->hy)
+printf("H_IS:%d\nV_IS:%d\n", win->h_is, win->v_is);
+if (win->hy)
+printf("H_X:%f\nH_Y:%f\nV_X:%f\nV_Y:%f\n", win->ray.h_dot.pix_x, win->ray.h_dot.pix_y, win->ray.v_dot.pix_x, win->ray.v_dot.pix_y);
 		if (some_line(win, v, h, angle))
 			casting_draw(win , i, ((float)CUBE / (float)pifagor(win, angle, 'l')) * win->gg.to_screen, 2);
 		else
-		// {write(1, "a\n", 2);
+		{
+if (win->hy)
+write(1, "0\n", 2);
 			call_drawer(win, i, v, h);
-		// }
+		}
 win->hy = 0;
 		angle -= win->gg.angle_size;
 	}

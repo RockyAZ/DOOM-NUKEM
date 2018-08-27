@@ -163,11 +163,6 @@ int					horiz_inter_bot(t_main *win, float angle);
 */
 void				event_callback(t_main *win);
 void				mouse_pos(t_main *win);
-// void				key_callback(GLFWwindow *window, int key,\
-					int scan, int act, int mods);
-/*
-** mouse.c
-*/
 
 /*
 ** error.c

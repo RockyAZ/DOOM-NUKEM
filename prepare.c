@@ -38,7 +38,7 @@ void	main_prepare(int ac, char **av, t_main **win)
 	cp_win->keys.space = 0;
 	cp_win->quit = 0;
 	cp_win->line.x1 = 128;
-	cp_win->line.y2 = 128;
+	cp_win->line.y1 = 128;
 	cp_win->line.x2 = 256;
 	cp_win->line.y2 = 256;
 	*win = cp_win;
@@ -57,46 +57,6 @@ void	ray_player_prepare(t_main *win)
 	win->gg.up_down = 0;	
 	win->rotate = 2;
 }
-
-// void	texture_prepare_cont(t_main *win)
-// {
-// 	if (!(win->img.tex[5] = stbi_load("./tex/mand1.bmp",\
-// 	&win->img.width, &win->img.height, &win->img.nr_channel, 0)))
-// 		error("texture[5] open error D:\n");
-// 	if (!(win->img.tex[6] = stbi_load("./tex/mand2.bmp",\
-// 	&win->img.width, &win->img.height, &win->img.nr_channel, 0)))
-// 		error("texture[6] open error D:\n");
-// 	if (!(win->img.tex[7] = stbi_load("./tex/mand3.bmp",\
-// 	&win->img.width, &win->img.height, &win->img.nr_channel, 0)))
-// 		error("texture[7] open error D:\n");
-// 	if (!(win->img.tex[8] = stbi_load("./tex/mand4.bmp",\
-// 	&win->img.width, &win->img.height, &win->img.nr_channel, 0)))
-// 		error("texture[8] open error D:\n");
-// 	if (!(win->img.tex[9] = stbi_load("./tex/moon.bmp",\
-// 	&win->img.width, &win->img.height, &win->img.nr_channel, 0)))
-// 		error("texture[9] open error D:\n");
-// }
-
-// void	texture_prepare(t_main *win)
-// {
-// 	if (!(win->img.tex[0] = stbi_load("./tex/floor.bmp",\
-// 	&win->img.width, &win->img.height, &win->img.nr_channel, 0)))
-// 		error("texture[0] open error D:\n");
-// 	if (!(win->img.tex[1] = stbi_load("./tex/Flag4.bmp",\
-// 	&win->img.width, &win->img.height, &win->img.nr_channel, 0)))
-// 		error("texture[1] open error D:\n");
-// 	if (!(win->img.tex[2] = stbi_load("./tex/neko.png",\
-// 	&win->img.width, &win->img.height, &win->img.nr_channel, 0)))
-// 		error("texture[2] open error D:\n");
-// 	if (!(win->img.tex[3] = stbi_load("./tex/Silver3.bmp",\
-// 	&win->img.width, &win->img.height, &win->img.nr_channel, 0)))
-// 		error("texture[3] open error D:\n");
-// 	if (!(win->img.tex[4] = stbi_load("./tex/White1.bmp",\
-// 	&win->img.width, &win->img.height, &win->img.nr_channel, 0)))
-// 		error("texture[4] open error D:\n");
-// 	texture_prepare_cont(win);
-// }
-
 
 SDL_Surface	*load_image(char *path)
 {
