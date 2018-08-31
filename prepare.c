@@ -37,10 +37,21 @@ void	main_prepare(int ac, char **av, t_main **win)
 	cp_win->h_is = 0;
 	cp_win->keys.space = 0;
 	cp_win->quit = 0;
-	cp_win->line.x1 = 128;
-	cp_win->line.y1 = 128;
-	cp_win->line.x2 = 256;
-	cp_win->line.y2 = 256;
+
+	cp_win->line[0].x1 = 128;
+	cp_win->line[0].y1 = 128;
+	cp_win->line[0].x2 = 256;
+	cp_win->line[0].y2 = 256;
+
+	cp_win->line[1].x1 = 256;
+	cp_win->line[1].y1 = 256;
+	cp_win->line[1].x2 = 320;
+	cp_win->line[1].y2 = 256;
+
+	cp_win->line[2].x1 = 320;
+	cp_win->line[2].y1 = 256;
+	cp_win->line[2].x2 = 400;
+	cp_win->line[2].y2 = 150;
 	*win = cp_win;
 }
 
@@ -67,7 +78,6 @@ SDL_Surface	*load_image(char *path)
 		error("Unable to load texture image!\n");
 	return (texture);
 }
-
 
 void	texture_prepare(t_main *win)
 {

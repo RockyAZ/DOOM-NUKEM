@@ -140,7 +140,7 @@ typedef struct		s_main
 	float			rotate;
 	int				fps;
 int hy;
-t_lines				line;
+t_lines				line[3];
 t_mouse				l_p;
 }					t_main;
 
@@ -177,7 +177,7 @@ float				ft_tan(float angle);
 float				ft_sin(float angle);
 float				ft_cos(float angle);
 int					pifagor(t_main *win, float angle, char c);
-void				ray_simple(t_main *win, float angle, int v, int h);
+void				ray_simple(t_main *win, double angle, int v, int h);
 
 /*
 ** action.c
