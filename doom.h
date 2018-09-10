@@ -13,10 +13,13 @@
 #ifndef DOOM_H
 # define DOOM_H
 
-# define WIDTH 640
-# define HEIGHT 400
+// # define WIDTH 640
+// # define HEIGHT 400
 // # define WIDTH 320
 // # define HEIGHT 200
+# define WIDTH 1200
+# define HEIGHT 1080
+
 #define YELLOW 4294967040
 #define RED 4294901760
 #define BLUE 4278190335
@@ -105,8 +108,8 @@ typedef struct		s_player
 	double			screen_coef;
 	double			angle_coef;
 	int				found_p;
-	int				x;
-	int				y;
+	double			x;
+	double			y;
 	int				angle;
 	int				front;
 }					t_player;
@@ -114,7 +117,7 @@ typedef struct		s_player
 typedef struct		s_doom
 {
 //если закоментить сздесь
-	// unsigned int	buffer[HEIGHT][WIDTH];
+	unsigned int	buffer[HEIGHT][WIDTH];
 	SDL_Window		*win;
 	SDL_Renderer	*ren;
 	SDL_Texture		*screen;
@@ -125,8 +128,8 @@ typedef struct		s_doom
 	t_screen		*scr_buf;
 //и разкоментить эту шнягу, то doom->quit будет заменён на значение приcвающееся буферу
 //какого хрена???
-	unsigned int	buffer[HEIGHT][WIDTH];
-	int				*quit;
+	// unsigned int	buffer[HEIGHT][WIDTH];
+	int				quit;
 	int				form_counter;
 }					t_doom;
 

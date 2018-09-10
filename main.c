@@ -18,8 +18,9 @@ void	doom_prepare(t_doom **doom,int x,int y)
 
 	if (!(cp_doom = (t_doom*)malloc(sizeof(t_doom))))
 		error("doom malloc error\n");
-	cp_doom->quit = (int*)malloc(sizeof(int));
-	*cp_doom->quit = 0;
+	// cp_doom->quit = (int*)malloc(sizeof(int));
+	// *cp_doom->quit = 0;
+	cp_doom->quit = 0;	
 	cp_doom->gg = (t_player*)malloc(sizeof(t_player));
 	cp_doom->gg->x = x;
 	cp_doom->gg->y = y;
@@ -114,16 +115,24 @@ void	make_forms_1(t_doom *doom)
 	t_form	*form;
 
 	form = (t_form*)malloc(sizeof(t_form));
-	form->vertex.x1 = 1;
-	form->vertex.y1 = 4;
-	form->vertex.x2 = 5;
-	form->vertex.y2 = 4;
+	form->vertex.x1 = 2;
+	form->vertex.y1 = 3;
+	form->vertex.x2 = 6;
+	form->vertex.y2 = 0;
 	form->color = RED;
 	form->n = 'A';
-	form->next = NULL;
+
+	form->next = (t_form*)malloc(sizeof(t_form));
+	form->next->vertex.x1 = 3;
+	form->next->vertex.y1 = 4;
+	form->next->vertex.x2 = 5;
+	form->next->vertex.y2 = 2;
+	form->next->color = GREEN;
+	form->next->n = 'B';
+	form->next->next = NULL;
 
 	doom->first_form = form;
-	doom->form_counter = 1;
+	doom->form_counter = 2;
 }
 
 
@@ -140,8 +149,8 @@ int	main(int ac, char **av)
 	doom->screen = SDL_CreateTexture(doom->ren, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, WIDTH, HEIGHT);
 	SDL_SetTextureBlendMode(doom->screen, SDL_BLENDMODE_BLEND);
 
-	make_forms(doom);
-// make_forms_1(doom);
+	// make_forms(doom);
+make_forms_1(doom);
 	
 	calc_forms(doom->first_form);
 	first_bsp(doom);
@@ -154,7 +163,7 @@ int	main(int ac, char **av)
 	// system ("leaks doom-nukem");
 unsigned long long int rr = 0;
 double old;
-	while (*doom->quit == 0)
+	while (doom->quit == 0)
 	{
 rr++;
 		SDL_SetRenderDrawColor(doom->ren, 0, 0, 0, 0);
@@ -186,13 +195,13 @@ rr++;
 			}
 
 			else if (doom->e.type == SDL_KEYDOWN && doom->e.key.keysym.sym == SDLK_ESCAPE)
-				*doom->quit = 1;
+				doom->quit = 1;
 			
 	doom->gg->view_right.x = doom->gg->view.y;
 	doom->gg->view_right.y = doom->gg->view.x * -1;
 	doom->gg->normal_right = dot_prod(doom->gg->x, doom->gg->y, doom->gg->view_right.x, doom->gg->view_right.y);
 			if (doom->e.type == SDL_QUIT)
-				*doom->quit = 1;
+				doom->quit = 1;
 		}
 		drawing_wall(doom);
 		SDL_UpdateTexture(doom->screen, NULL, doom->buffer[0], WIDTH << 2);
@@ -203,7 +212,7 @@ rr++;
 		SDL_RenderPresent(doom->ren);
 printf("%llu\n", rr);
 	}
-	printf("%d\n", *doom->quit);
+	printf("%d\n", doom->quit);
 	// SDL_DestroyRenderer(doom->ren);
 	// SDL_DestroyWindow(doom->win);
 	SDL_Quit();
