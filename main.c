@@ -47,6 +47,7 @@ SDL_RenderCopy(win->ren, win->screen, NULL, NULL);
 			// printf("FPS:%d\n", 1000 /(SDL_GetTicks() - win->fps));
 		SDL_RenderPresent(win->ren);
 	}
+
 	SDL_DestroyRenderer(win->ren);
 	SDL_DestroyWindow(win->win);
 	SDL_Quit();

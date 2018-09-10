@@ -62,6 +62,7 @@ void	add_draw(t_main *win, int x, int y, int tex_x, int tex_y, int color)
 	}
 	else
 			win->buffer[y][x] = get_pixel(win->img.tex[color], tex_x, tex_y);
+			// printf("%d\n", get_pixel(win->img.tex[color], tex_x, tex_y));
 }
 
 void	draw(int x, int y, t_main *win, int color)

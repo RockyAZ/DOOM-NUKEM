@@ -63,6 +63,9 @@ void	ray_player_prepare(t_main *win)
 	win->gg.fov = 60;
 	win->gg.angle_size = (float)(win->gg.fov / WIDTH);
 	win->gg.to_screen = (WIDTH / 2) / ft_tan(30);
+	// printf("%f\n", win->gg.to_screen);
+	// printf("%f\n", win->gg.angle_size);	
+	// exit(0);
 	win->gg.speed = 5;
 	win->gg.height = 32;
 	win->gg.up_down = 0;	
