@@ -1,161 +1,115 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   BSP.c                                              :+:      :+:    :+:   */
+/*   bsp.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azaporoz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/28 13:09:11 by azaporoz          #+#    #+#             */
-/*   Updated: 2018/08/28 13:09:11 by azaporoz         ###   ########.fr       */
+/*   Created: 2018/09/02 15:58:28 by azaporoz          #+#    #+#             */
+/*   Updated: 2018/09/02 15:58:28 by azaporoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "doom.h"
 
-#define POLYGON
-#define BSPNode
-
-struct BSPNode
+void	sort_form(t_bsp *bsp)
 {
-    POLYGON *splitter;
-    BSPNode *FrontChild;
-    BSPNode *BackChild;
-};
+	int i;
+	int dot_neg;
+	int dot_pos;
+	t_form *first;
 
-void RenderBSP (NODE * CurrentNode)
-{
-    int Result;
-    Result = ClassifyPoint(CameraPosition, CurrentNode->Polygon);
-    if (Result==Front)
-    {
-        if (CurrentNode->BackChild!=NULL)
-            RenderBSP (CurrentNode->BackChild);
-        DrawPolygon(CurrentNode->Polygon);
-        if (CurrentNode->FrontChild!=NULL)
-            RenderBSP (CurrentNode->FrontChild);
-    }
-    else
-    {
-        if (CurrentNode->FrontChild!=NULL)
-            RenderBSP (CurrentNode->FrontChild);
-        DrawPolygon(CurrentNode->Polygon);
-        if (CurrentNode->BackChild!=NULL)
-            RenderBSP (CurrentNode->BackChild);
-    }
+	i = 0;
+	dot_neg = 0;
+	dot_pos = 0;
+	while (bsp->arr_form[i] != NULL)
+	{
+		if (bsp->arr_form[i] != bsp->node_form && dot_prod(bsp->node_form->norm.x, bsp->node_form->norm.y, bsp->arr_form[i]->vertex.x1, bsp->arr_form[i]->vertex.y1) - bsp->node_form->dist > 0)
+			dot_pos++;
+		else if (bsp->arr_form[i] != bsp->node_form)
+			dot_neg++;
+		i++;
+	}
+	bsp->front->arr_form = (t_form**)malloc(sizeof(t_form*) * (dot_pos + 1));
+	bsp->back->arr_form = (t_form**)malloc(sizeof(t_form*) * (dot_neg + 1));
+	i = 0;
+	dot_pos = 0;
+	dot_neg = 0;
+	while (bsp->arr_form[i] != NULL)
+	{
+		if (bsp->arr_form[i] != bsp->node_form && dot_prod(bsp->node_form->norm.x, bsp->node_form->norm.y, bsp->arr_form[i]->vertex.x1, bsp->arr_form[i]->vertex.y1) - bsp->node_form->dist > 0)
+		{
+			bsp->front->arr_form[dot_pos] = bsp->arr_form[i];
+			dot_pos++;
+		}
+		else if (bsp->arr_form[i] != bsp->node_form)
+		{
+			bsp->back->arr_form[dot_neg] = bsp->arr_form[i];
+			dot_neg++;
+		}
+		i++;
+	}
+	bsp->front->arr_form[dot_pos] = NULL;
+	bsp->back->arr_form[dot_neg] = NULL;
+	i = 0;
+	while (bsp->front->arr_form[i] != NULL)
+	{
+		printf("front:%d:%c\n", i, bsp->front->arr_form[i]->n);
+		i++;
+	}
+	i = 0;
+	while (bsp->back->arr_form[i] != NULL)
+	{
+		printf("back:%d:%c\n", i, bsp->back->arr_form[i]->n);
+		i++;
+	}
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void WalkBspTree(NODE *Node,D3DVECTOR *pos)
+void		make_bsp(t_bsp **bsp)
 {
-POLYGON *shared;
-int result=ClassifyPoint(pos,Node-> Splitter);
+	static int	first;
+	t_bsp		*p;
 
-if (result==CP_FRONT)
-{
-    shared=Node-> Splitter->SameFacingShared;
-    if (Node-> Back!=NULL)
-        WalkBspTree(Node-> Back,pos);
-    lpDevice-> DrawIndexedPrimitive(D3DPT_TRIANGLELIST,D3DFVF_LVERTEX,&Node-> Splitter-> VertexList[0],Node-> Splitter-> NumberOfVertices,&Node-> Splitter->Indices[0],Node-> Splitter-> NumberOfIndices,NULL);
-
-    while (shared!=NULL)
-    {
-        lpDevice-> DrawIndexedPrimitive(D3DPT_TRIANGLELIST,D3DFVF_LVERTEX,&shared-> VertexList[0],shared-> NumberOfVertices,&shared-> Indices[0],shared-> NumberOfIndices,NULL);
-        shared=shared-> SameFacingShared;
-    }
-
-    if (Node->Front!=NULL)
-        WalkBspTree(Node->Front,pos);
-    return ;
+	p = *bsp;
+	printf("---->>>>VAR:::%d<<<<----\n", first);
+	if (p->arr_form[0] == NULL)
+	{
+		p->node_form = NULL;
+		p->is_leaf = 1;
+		p->is_solid = 1;
+		return ;
+	}
+	if (first != 0)
+		p->node_form = p->arr_form[0];
+	first++;
+	p->front = (t_bsp*)malloc(sizeof(t_bsp));
+	p->back = (t_bsp*)malloc(sizeof(t_bsp));
+	sort_form(*bsp);
+	p->is_leaf = 0;
+	p->is_solid = 0;
+	make_bsp(&p->back);
+	make_bsp(&p->front);
 }
 
-// this means we are at back of node 
-    shared=Node->Splitter->OppositeFacingShared;
-    if (Node->Front!=NULL)
-        WalkBspTree(Node->Front,pos);
-
-    while (shared!=NULL)
-    {
-        lpDevice-> DrawIndexedPrimitive(D3DPT_TRIANGLELIST,D3DFVF_LVERTEX,&shared-> VertexList[0],shared-> NumberOfVertices,&shared-> Indices[0],shared-> NumberOfIndices,NULL);
-        shared=shared-> OppositeFacingShared;
-    }
-    if (Node-> Back!=NULL) WalkBspTree(Node->Back,pos);
-        return;
-}
-
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-other site::
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-Some example pseudo code for a simple back-to-front renderer would therefore be:
-
-function render(node)
+void	first_bsp(t_doom *doom)
 {
-  if this node is a leaf
-    {
-      draw this node to the screen
-    }
-  else
-    {
-      determine which side of the dividing line the viewpoint is
-      
-      if it is on the left side
-        {
-          render(right subnode)
-          render(left subnode)
-        }
-      else
-        {
-          render(left subnode)
-          render(right subnode)
-        }
-    }
+	int		i;
+	t_bsp	*bsp;
+	t_form	*first_form;
+
+	i = 0;
+	first_form = doom->first_form;
+	bsp = (t_bsp*)malloc(sizeof(t_bsp));
+	bsp->node_form = doom->first_form;
+	bsp->arr_form = (t_form**)malloc(sizeof(t_form*) * (doom->form_counter + 1));
+	while (i < doom->form_counter)
+	{
+		bsp->arr_form[i] = doom->first_form;
+		doom->first_form = doom->first_form->next;
+		i++;
+	}
+	doom->first_form = first_form;
+	bsp->arr_form[i] = NULL;
+	make_bsp(&bsp);
+	doom->bsp = bsp;
 }
-
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-other site::
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-void    Build_BSP_Tree (BSP_tree *tree, list polygons)
-{
-   polygon   *root = polygons.Get_From_List ();
-   tree->partition = root->Get_Plane ();
-   tree->polygons.Add_To_List (root);
-   list      front_list,
-             back_list;
-   polygon   *poly;
-   while ((poly = polygons.Get_From_List ()) != 0)
-   {
-      int   result = tree->partition.Classify_Polygon (poly);
-      switch (result)
-      {
-         case COINCIDENT:
-            tree->polygons.Add_To_List (poly);
-            break;
-         case IN_BACK_OF:
-            backlist.Add_To_List (poly);
-            break;
-         case IN_FRONT_OF:
-            frontlist.Add_To_List (poly);
-            break;
-         case SPANNING:
-            polygon   *front_piece, *back_piece;
-            Split_Polygon (poly, tree->partition, front_piece, back_piece);
-            backlist.Add_To_List (back_piece);
-            frontlist.Add_To_List (front_piece);
-            break;
-      }
-   }
-   if ( ! front_list.Is_Empty_List ())
-   {
-      tree->front = new BSP_tree;
-      Build_BSP_Tree (tree->front, front_list);
-   }
-   if ( ! back_list.Is_Empty_List ())
-   {
-      tree->back = new BSP_tree;
-      Build_BSP_Tree (tree->back, back_list);
-   }
-}
-  

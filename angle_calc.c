@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mouse.c                                            :+:      :+:    :+:   */
+/*   angle_calc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azaporoz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/09 15:58:37 by azaporoz          #+#    #+#             */
-/*   Updated: 2018/08/09 15:58:38 by azaporoz         ###   ########.fr       */
+/*   Created: 2018/09/06 18:17:48 by azaporoz          #+#    #+#             */
+/*   Updated: 2018/09/06 18:17:49 by azaporoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wolf.h"
+#include "doom.h"
 
-void	mouse_pos(t_main *win)
+double	ft_tan(double angle)
 {
-	if (win->e.type == SDL_MOUSEMOTION)
-	{
-		win->gg.angle -= win->e.motion.xrel * 0.3;
-		win->gg.up_down -= win->e.motion.yrel * 0.3;
-		if (win->gg.angle >= 360)
-			win->gg.angle -= 360;
-		if (win->gg.angle < 0)
-			win->gg.angle += 360;
-		win->m.x = win->e.motion.x;
-		win->m.y = win->e.motion.y;
-	}
+	return (tan((angle * 2 * M_PI) / 360));
+}
+
+double	ft_cos(double angle)
+{
+	return (cos((angle * 2 * M_PI) / 360));
+}
+
+double	ft_sin(double angle)
+{
+	return (sin((angle * 2 * M_PI) / 360));
+}
+
+double	acos_degree(double c)
+{
+	return (acos(c) * 180 / M_PI);
 }

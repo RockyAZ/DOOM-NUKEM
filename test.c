@@ -1,97 +1,144 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: azaporoz <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/09/02 17:12:06 by azaporoz          #+#    #+#             */
+/*   Updated: 2018/09/02 17:12:07 by azaporoz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-int get_line_intersection(float p0_x, float p0_y, float p1_x, float p1_y, float p2_x, float p2_y, float p3_x, float p3_y, float *i_x, float *i_y)
+typedef struct      s_list
 {
-	float s1_x, s1_y, s2_x, s2_y;
-	s1_x = p1_x - p0_x;
-	s1_y = p1_y - p0_y;
+	int             x;
+	struct s_list   *next;
+}                   t_list;
 
-	s2_x = p3_x - p2_x;
-	s2_y = p3_y - p2_y;
+t_list    *push_front(t_list *main, t_list *current)
+{
+	current->next = main;
+	return (current);
+}
 
-	float s, t;
-	s = (-s1_y * (p0_x - p2_x) + s1_x * (p0_y - p2_y)) / (-s2_x * s1_y + s1_x * s2_y);
-	t = ( s2_x * (p0_y - p2_y) - s2_y * (p0_x - p2_x)) / (-s2_x * s1_y + s1_x * s2_y);
-	if (s >= 0 && s <= 1 && t >= 0 && t <= 1)
+void	push_back(t_list **sorted, t_list *main)
+{
+	t_list *p;
+
+	p = *sorted;
+	if (*sorted == NULL)
 	{
-		// Collision detected
-		if (i_x != NULL)
-			*i_x = p0_x + (t * s1_x);
-		if (i_y != NULL)
-			*i_y = p0_y + (t * s1_y);
-		return 1;
+		*sorted = main;
+
+		return ;
 	}
-	return 0; // No collision
+	while (p->next != NULL)
+		p = p->next;
+	p->next = main;
 }
 
-typedef struct s_pddd
+t_list **sorted(t_list *main)
 {
-	int first;
-	int second;
-}				pddd;
+	int count = 0;
+	t_list **res;
+	t_list *p;
 
-typedef struct s_pdd
-{
-	int x1;
-	int y1;
-
-	int x2;
-	int y2;
-}				pdd;
-
-
-// pddd make_pair(int x, int y)
-// {
-// 	pddd var;
-// 	var.first = x;
-// 	var.second = y;
-// 	return (var);
-// }
-
-// pddd lineLineIntersection(pdd a, pdd b)
-// {
-//     double a1 = a.y2 - a.y1;
-//     double b1 = a.x1 - a.x2;
-//     double c1 = a1*(a.x1) + b1*(a.y1);
- 
-//     double a2 = b.y2 - b.y1;
-//     double b2 = b.x1 - b.x2;
-//     double c2 = a2*(b.x1)+ b2*(b.y1);
- 
-//     double determinant = a1*b2 - a2*b1;
-
-// 	if (determinant == 0)
-// 		return make_pair(0, 0);
-//     else
-//     {
-//         double x = (b2*c1 - b1*c2)/determinant;
-//         double y = (a1*c2 - a2*c1)/determinant;
-//         return make_pair(x, y);
-//     }
-// }
-
-int main(int zc, char **av)
-{
-	pdd A;
-	pdd B;
-	// pdd C;
-	// pdd D;
-
-A.x1 = atoi(av[1]);
-A.y1 = atoi(av[2]);
-
-A.x2 = atoi(av[3]);
-A.y2 = atoi(av[4]);
-
-
-B.x1 = atoi(av[5]);
-B.y1 = atoi(av[6]);
-
-B.x2 = atoi(av[7]);
-B.y2 = atoi(av[8]);
-
-	// pddd res = lineLineIntersection(A, B);
-	// printf("X:%d\nY:%d\n", res.first, res.second);
-	printf("%d\n", get_line_intersection(atoi(av[1]), atoi(av[2]), atoi(av[3]), atoi(av[4]), atoi(av[5]), atoi(av[6]), atoi(av[7]), atoi(av[8]), NULL, NULL));
+	res = NULL;
+	p = main;
+	while (main)
+	{
+		if (main->x <= 5)
+			count++;
+		main = main->next;
+	}
+	res = (t_list**)malloc(sizeof(t_list*) * count);
+	int i = 0;
+	while (p)
+	{
+		if (p->x <= 5)
+			res[i++] = p;
+		p = p->next;
+	}
+	res[count] = NULL;
+	return (res);
 }
+
+void	f(t_list *list)
+{
+	list = (t_list*)malloc(sizeof(t_list));
+}
+
+int main()
+{
+	int i = 0;
+	t_list *first;
+	t_list *main;
+
+	t_list **sorted_list;
+
+	main = (t_list*)malloc(sizeof(t_list));
+	main->x = i;
+	first = main;
+	while (i++ < 10)
+	{
+		main->next = (t_list*)malloc(sizeof(t_list));
+		main = main->next;
+		main->x = i;
+	}
+	main->next = NULL;
+	main = first;
+
+
+	t_list *demo;
+	t_list *tru;
+
+	t_list *fal;
+	demo = (t_list*)malloc(sizeof(t_list));
+	tru = demo;
+	fal = main;
+	if (tru == demo)
+		printf("tru == demo\n");
+	if (fal != demo)
+		printf("fal == demo\n");
+// sorted_list = sorted(main);
+// 	while (main)
+// 	{
+// 		printf("LIST::%d\n", main->x);
+// 		main = main->next;
+// 	}
+// printf("============\n");
+// 	i = 0;
+// 	while (sorted_list[i])
+// 	{
+// 		printf("LIST::%d\n", sorted_list[i]->x);
+// 		i++;
+// 	}
+	return (0);
+}
+
+// void RenderBSP(Node *node)
+// {
+//   int result = ClassifyPoint(camera_position,node->splitter_polygon);
+
+//   if (result == FRONT)
+//   {
+//     if (node->back != NULL)
+// 		RenderBSP(node->back);
+//     DrawPolygon(node->splitter_polygon);
+//     if (node->front != NULL)
+// 		RenderBSP(node->front);
+//   }
+//   else
+//   {
+//     if (node->front != NULL) RenderBSP(node->front);
+//     DrawPolygon(node->splitter_polygon);
+//     if (node->back != NULL) RenderBSP(node->back);
+//   }
+
+//   return;
+// }
