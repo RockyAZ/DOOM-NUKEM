@@ -116,7 +116,6 @@ typedef struct		s_player
 
 typedef struct		s_doom
 {
-//если закоментить сздесь
 	unsigned int	buffer[HEIGHT][WIDTH];
 	SDL_Window		*win;
 	SDL_Renderer	*ren;
@@ -126,9 +125,6 @@ typedef struct		s_doom
 	t_form			*first_form;
 	t_player		*gg;
 	t_screen		*scr_buf;
-//и разкоментить эту шнягу, то doom->quit будет заменён на значение приcвающееся буферу
-//какого хрена???
-	// unsigned int	buffer[HEIGHT][WIDTH];
 	int				quit;
 	int				form_counter;
 }					t_doom;

@@ -98,8 +98,10 @@ void	renderer_center(t_form *form, t_player *player, double start, double end, t
 printf("REAL_START:%f\nREAL_END:%f\n", start, end);	
 	pif_a = pifagor(form->vertex.x1 - player->x, form->vertex.y1 - player->y);
 	pif_b = pifagor(form->vertex.x2 - player->x, form->vertex.y2 - player->y);
-	a_h = WALL / pif_a * SCREEN;
-	b_h = WALL / pif_b * SCREEN;
+	a_h = WALL / pif_a / (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist) * SCREEN;
+	b_h = WALL / pif_b / (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist) * SCREEN;
+	// a_h = WALL / pif_a * SCREEN;
+	// b_h = WALL / pif_b * SCREEN;
 	var = (a_h - b_h) / width;
 	start = CENTER_W - start;
 	end = CENTER_W + end;
@@ -123,7 +125,6 @@ printf("NORMAL::%f\nNORMAL_RIGHT:%f\n", player->normal, player->normal_right);
 		a_h -= var;
 		start++;
 	}
-
 }
 
 void	renderer_left(t_form *form, t_player *player, double start, double end, t_doom *doom)
@@ -139,8 +140,10 @@ void	renderer_left(t_form *form, t_player *player, double start, double end, t_d
 printf("REAL_START:%f\nREAL_END:%f\n", start, end);
 	pif_a = pifagor(form->vertex.x1 - player->x, form->vertex.y1 - player->y);
 	pif_b = pifagor(form->vertex.x2 - player->x, form->vertex.y2 - player->y);
-	a_h = WALL / pif_a * SCREEN;
-	b_h = WALL / pif_b * SCREEN;
+	a_h = WALL / pif_a / (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist) * SCREEN;
+	b_h = WALL / pif_b / (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist) * SCREEN;
+	// a_h = WALL / pif_a * SCREEN;
+	// b_h = WALL / pif_b * SCREEN;
 	var = (a_h - b_h) / width;
 	start = CENTER_W - start;
 	end = CENTER_W - end;
@@ -180,8 +183,10 @@ void	renderer_right(t_form *form, t_player *player, double start, double end, t_
 printf("REAL_START:%f\nREAL_END:%f\n", start, end);	
 	pif_a = pifagor(form->vertex.x1 - player->x, form->vertex.y1 - player->y);
 	pif_b = pifagor(form->vertex.x2 - player->x, form->vertex.y2 - player->y);
-	a_h = WALL / pif_a * SCREEN;
-	b_h = WALL / pif_b * SCREEN;
+	a_h = WALL / pif_a / (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist) * SCREEN;
+	b_h = WALL / pif_b / (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist) * SCREEN;
+	// a_h = WALL / pif_a * SCREEN;
+	// b_h = WALL / pif_b * SCREEN;
 	var = (a_h - b_h) / width;
 	start = CENTER_W + start;
 	end = CENTER_W + end;
