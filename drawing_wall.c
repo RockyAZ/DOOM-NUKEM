@@ -109,10 +109,10 @@ else
 	pif_b = pifagor(form->vertex.x1 - player->x, form->vertex.y1 - player->y);
 }
 printf("normal_vect_x::%f\nnormal_vect_y::%f\n", form->norm.x, form->norm.y);
-	a_h = WALL / pif_a / ft_min_d(pifagor(form->center.x - player->x, form->center.y - player->y), (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist))  * SCREEN;
-	b_h = WALL / pif_b / ft_min_d(pifagor(form->center.x - player->x, form->center.y - player->y), (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist))  * SCREEN;
-	// a_h = WALL / pif_a / pifagor(form->center.x - player->x, form->center.y - player->y) * SCREEN;
-	// b_h = WALL / pif_b / pifagor(form->center.x - player->x, form->center.y - player->y) * SCREEN;
+	// a_h = WALL / pif_a / ft_min_d(pifagor(form->center.x - player->x, form->center.y - player->y), (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist))  * SCREEN;
+	// b_h = WALL / pif_b / ft_min_d(pifagor(form->center.x - player->x, form->center.y - player->y), (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist))  * SCREEN;
+	a_h = WALL / pif_a / pifagor(form->center.x - player->x, form->center.y - player->y) * SCREEN;
+	b_h = WALL / pif_b / pifagor(form->center.x - player->x, form->center.y - player->y) * SCREEN;
 	// a_h = WALL / pif_a / (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist) * SCREEN;
 	// b_h = WALL / pif_b / (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist) * SCREEN;
 	// a_h = WALL / pif_a * SCREEN;
@@ -167,10 +167,10 @@ else
 	pif_b = pifagor(form->vertex.x1 - player->x, form->vertex.y1 - player->y);
 }
 printf("normal_vect_x::%f\nnormal_vect_y::%f\n", form->norm.x, form->norm.y);
-	a_h = WALL / pif_a / ft_min_d(pifagor(form->center.x - player->x, form->center.y - player->y), (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist))  * SCREEN;
-	b_h = WALL / pif_b / ft_min_d(pifagor(form->center.x - player->x, form->center.y - player->y), (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist))  * SCREEN;
-	// a_h = WALL / pif_a / pifagor(form->center.x - player->x, form->center.y - player->y) * SCREEN;
-	// b_h = WALL / pif_b / pifagor(form->center.x - player->x, form->center.y - player->y) * SCREEN;
+	// a_h = WALL / pif_a / ft_min_d(pifagor(form->center.x - player->x, form->center.y - player->y), (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist))  * SCREEN;
+	// b_h = WALL / pif_b / ft_min_d(pifagor(form->center.x - player->x, form->center.y - player->y), (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist))  * SCREEN;
+	a_h = WALL / pif_a / pifagor(form->center.x - player->x, form->center.y - player->y) * SCREEN;
+	b_h = WALL / pif_b / pifagor(form->center.x - player->x, form->center.y - player->y) * SCREEN;
 	// a_h = WALL / pif_a / (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist) * SCREEN;
 	// b_h = WALL / pif_b / (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist) * SCREEN;
 	// a_h = WALL / pif_a * SCREEN;
@@ -226,10 +226,10 @@ else
 	pif_b = pifagor(form->vertex.x1 - player->x, form->vertex.y1 - player->y);
 }
 printf("normal_vect_x::%f\nnormal_vect_y::%f\n", form->norm.x, form->norm.y);
-	a_h = WALL / pif_a / ft_min_d(pifagor(form->center.x - player->x, form->center.y - player->y), (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist))  * SCREEN;
-	b_h = WALL / pif_b / ft_min_d(pifagor(form->center.x - player->x, form->center.y - player->y), (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist))  * SCREEN;
-	// a_h = WALL / pif_a / pifagor(form->center.x - player->x, form->center.y - player->y) * SCREEN;
-	// b_h = WALL / pif_b / pifagor(form->center.x - player->x, form->center.y - player->y) * SCREEN;
+	// a_h = WALL / pif_a / ft_min_d(pifagor(form->center.x - player->x, form->center.y - player->y), (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist))  * SCREEN;
+	// b_h = WALL / pif_b / ft_min_d(pifagor(form->center.x - player->x, form->center.y - player->y), (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist))  * SCREEN;
+	a_h = WALL / pif_a / pifagor(form->center.x - player->x, form->center.y - player->y) * SCREEN;
+	b_h = WALL / pif_b / pifagor(form->center.x - player->x, form->center.y - player->y) * SCREEN;
 	// a_h = WALL / pif_a / (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist) * SCREEN;
 	// b_h = WALL / pif_b / (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist) * SCREEN;
 	// a_h = WALL / pif_a * SCREEN;
