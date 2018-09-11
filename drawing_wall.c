@@ -70,7 +70,7 @@ void	draw_line(t_doom *doom, int x, double h, t_form *form)
 {
 	int y;
 	int j;
-
+// printf("H:%f<<<<<<<<<\n", h);
 	y = CENTER_H - h / 2;
 	j = CENTER_H + h / 2;
 	if (y < 0)
@@ -95,11 +95,18 @@ void	renderer_center(t_form *form, t_player *player, double start, double end, t
 	double b_h;
 	double var;
 	double width = start + end;
-printf("REAL_START:%f\nREAL_END:%f\n", start, end);	
+printf("REAL_START:%f\nREAL_END:%f\n", start, end);
+printf("\nvertex.x1::%d\nvertex.y1::%d\nvertex.x2::%d\nvertex.y2::%d\nplayer->x::%f\nplayer->y::%f\n\n", form->vertex.x1, form->vertex.y1, form->vertex.x2, form->vertex.y2, player->x, player->y);
 	pif_a = pifagor(form->vertex.x1 - player->x, form->vertex.y1 - player->y);
 	pif_b = pifagor(form->vertex.x2 - player->x, form->vertex.y2 - player->y);
-	a_h = WALL / pif_a / (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist) * SCREEN;
-	b_h = WALL / pif_b / (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist) * SCREEN;
+double dot_a = dot_prod(player->x, player->y, form->norm.x, form->norm.y);
+double dot_b = dot_prod(player->x, player->y, form->norm.x, form->norm.y);
+printf("DOT_A:%f\nDOT_B:%f\nDIST:%f\n", dot_a, dot_b, form->dist);
+printf("normal_vect_x::%f\nnormal_vect_y::%f\n", form->norm.x, form->norm.y);
+	a_h = WALL / pif_a / pifagor(form->center.x - player->x, form->center.y - player->y) * SCREEN;
+	b_h = WALL / pif_b / pifagor(form->center.x - player->x, form->center.y - player->y) * SCREEN;
+	// a_h = WALL / pif_a / (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist) * SCREEN;
+	// b_h = WALL / pif_b / (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist) * SCREEN;
 	// a_h = WALL / pif_a * SCREEN;
 	// b_h = WALL / pif_b * SCREEN;
 	var = (a_h - b_h) / width;
@@ -125,6 +132,7 @@ printf("NORMAL::%f\nNORMAL_RIGHT:%f\n", player->normal, player->normal_right);
 		a_h -= var;
 		start++;
 	}
+	printf("___%f\n", a_h);
 }
 
 void	renderer_left(t_form *form, t_player *player, double start, double end, t_doom *doom)
@@ -138,10 +146,17 @@ void	renderer_left(t_form *form, t_player *player, double start, double end, t_d
 	double width = start - end;
 	width = fabs(width);
 printf("REAL_START:%f\nREAL_END:%f\n", start, end);
+printf("\nvertex.x1::%d\nvertex.y1::%d\nvertex.x2::%d\nvertex.y2::%d\nplayer->x::%f\nplayer->y::%f\n\n", form->vertex.x1, form->vertex.y1, form->vertex.x2, form->vertex.y2, player->x, player->y);
 	pif_a = pifagor(form->vertex.x1 - player->x, form->vertex.y1 - player->y);
 	pif_b = pifagor(form->vertex.x2 - player->x, form->vertex.y2 - player->y);
-	a_h = WALL / pif_a / (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist) * SCREEN;
-	b_h = WALL / pif_b / (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist) * SCREEN;
+double dot_a = dot_prod(player->x, player->y, form->norm.x, form->norm.y);
+double dot_b = dot_prod(player->x, player->y, form->norm.x, form->norm.y);
+printf("DOT_A:%f\nDOT_B:%f\nDIST:%f\n", dot_a, dot_b, form->dist);
+printf("normal_vect_x::%f\nnormal_vect_y::%f\n", form->norm.x, form->norm.y);
+	a_h = WALL / pif_a / pifagor(form->center.x - player->x, form->center.y - player->y) * SCREEN;
+	b_h = WALL / pif_b / pifagor(form->center.x - player->x, form->center.y - player->y) * SCREEN;
+	// a_h = WALL / pif_a / (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist) * SCREEN;
+	// b_h = WALL / pif_b / (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist) * SCREEN;
 	// a_h = WALL / pif_a * SCREEN;
 	// b_h = WALL / pif_b * SCREEN;
 	var = (a_h - b_h) / width;
@@ -168,6 +183,7 @@ printf("NORMAL::%f\nNORMAL_RIGHT:%f\n", player->normal, player->normal_right);
 		a_h -= var;
 		start++;
 	}
+	printf("___%f\n", a_h);
 }
 
 void	renderer_right(t_form *form, t_player *player, double start, double end, t_doom *doom)
@@ -179,12 +195,19 @@ void	renderer_right(t_form *form, t_player *player, double start, double end, t_
 	double b_h;
 	double var;
 	double width = start - end;
-	width = fabs(width);	
+	width = fabs(width);
 printf("REAL_START:%f\nREAL_END:%f\n", start, end);	
+printf("\nvertex.x1::%d\nvertex.y1::%d\nvertex.x2::%d\nvertex.y2::%d\nplayer->x::%f\nplayer->y::%f\n\n", form->vertex.x1, form->vertex.y1, form->vertex.x2, form->vertex.y2, player->x, player->y);
 	pif_a = pifagor(form->vertex.x1 - player->x, form->vertex.y1 - player->y);
 	pif_b = pifagor(form->vertex.x2 - player->x, form->vertex.y2 - player->y);
-	a_h = WALL / pif_a / (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist) * SCREEN;
-	b_h = WALL / pif_b / (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist) * SCREEN;
+double dot_a = dot_prod(player->x, player->y, form->norm.x, form->norm.y);
+double dot_b = dot_prod(player->x, player->y, form->norm.x, form->norm.y);
+printf("DOT_A:%f\nDOT_B:%f\nDIST:%f\n", dot_a, dot_b, form->dist);
+printf("normal_vect_x::%f\nnormal_vect_y::%f\n", form->norm.x, form->norm.y);
+	a_h = WALL / pif_a / pifagor(form->center.x - player->x, form->center.y - player->y) * SCREEN;
+	b_h = WALL / pif_b / pifagor(form->center.x - player->x, form->center.y - player->y) * SCREEN;
+	// a_h = WALL / pif_a / (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist) * SCREEN;
+	// b_h = WALL / pif_b / (dot_prod(player->x, player->y, form->norm.x, form->norm.y) - form->dist) * SCREEN;
 	// a_h = WALL / pif_a * SCREEN;
 	// b_h = WALL / pif_b * SCREEN;
 	var = (a_h - b_h) / width;
@@ -210,6 +233,7 @@ printf("NORMAL::%f\nNORMAL_RIGHT:%f\n", player->normal, player->normal_right);
 		a_h -= var;
 		start++;
 	}
+	printf("___%f\n", a_h);
 }
 
 /*	отношение градуса к экарну занести в таблицу	*/
@@ -223,14 +247,14 @@ void	draw_polygon(t_bsp *bsp, t_player *player, t_doom *doom)
 	double is_right_a;
 	double is_right_b;
 
-	// printf("bsp->node_form->vertex.x1::%f, bsp->node_form->vertex.y1::%f, player->view_right.x::%f, player->view_right.y::%f) - player->normal_right::%f\n",\
+	printf("bsp->node_form->vertex.x1::%d, bsp->node_form->vertex.y1::%d, player->view_right.x::%f, player->view_right.y::%f) - player->normal_right::%f\n",\
 	bsp->node_form->vertex.x1, bsp->node_form->vertex.y1, player->view_right.x, player->view_right.y, player->normal_right);
-	// printf("bsp->node_form->vertex.x2::%f, bsp->node_form->vertex.y2::%f, player->view_right.x::%f, player->view_right.y::%f) - player->normal_right::%f\n",\
+	printf("bsp->node_form->vertex.x2::%d, bsp->node_form->vertex.y2::%d, player->view_right.x::%f, player->view_right.y::%f) - player->normal_right::%f\n",\
 	bsp->node_form->vertex.x2, bsp->node_form->vertex.y2, player->view_right.x, player->view_right.y, player->normal_right);
 	is_right_a = dot_prod(bsp->node_form->vertex.x1, bsp->node_form->vertex.y1, player->view_right.x, player->view_right.y) - player->normal_right;
 	is_right_b = dot_prod(bsp->node_form->vertex.x2, bsp->node_form->vertex.y2, player->view_right.x, player->view_right.y) - player->normal_right;
-	// printf("is_right_a::%f=============is_right_b::%f\n", is_right_a, is_right_b);
-// printf("P_X::%f\nP_Y::%f\n", player->x, player->y);
+	printf("is_right_a::%f=============is_right_b::%f\n", is_right_a, is_right_b);
+	printf("P_X::%f\nP_Y::%f\n", player->x, player->y);
 	vect_a = normalizing(bsp->node_form->vertex.x1 - player->x, bsp->node_form->vertex.y1 - player->y);
 	vect_b = normalizing(bsp->node_form->vertex.x2 - player->x, bsp->node_form->vertex.y2 - player->y);
 	angle_a = dot_prod(vect_a.x, vect_a.y, player->view.x, player->view.y);
@@ -245,7 +269,7 @@ void	draw_polygon(t_bsp *bsp, t_player *player, t_doom *doom)
 		return ;
 	else if (is_right_a >= 0 && is_right_b >= 0)
 	{
-		printf("angle_a:%f\n, angle_b:%f\n", angle_a, angle_b);		
+		printf("angle_a:%f\n, angle_b:%f\n", angle_a, angle_b);
 		angle_a = angle_a * player->angle_coef;
 		angle_b = angle_b * player->angle_coef;
 		printf("angle_a:%f\n, angle_b:%f\n", angle_a, angle_b);

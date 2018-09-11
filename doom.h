@@ -13,10 +13,10 @@
 #ifndef DOOM_H
 # define DOOM_H
 
-// # define WIDTH 640
-// # define HEIGHT 400
 // # define WIDTH 320
 // # define HEIGHT 200
+// # define WIDTH 640
+// # define HEIGHT 400
 # define WIDTH 1200
 # define HEIGHT 1080
 
@@ -29,7 +29,7 @@
 
 # define CENTER_W WIDTH / 2
 # define CENTER_H HEIGHT / 2
-# define WALL 1
+# define WALL 20
 # define FOV 60
 #define SCREEN 277
 
@@ -76,6 +76,7 @@ typedef struct		s_form
 	t_vert			vertex;
 unsigned int color;
 	struct s_form	*next;
+	t_vector		center;
 	char n;
 }					t_form;
 
