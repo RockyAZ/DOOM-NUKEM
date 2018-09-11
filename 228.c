@@ -38,6 +38,6 @@ double	acos_degree(double c)
 
 int main()
 {
-    printf("%f\n", acos_degree(1.1));
+    printf("%f\n", acos_degree(0.242536));
     return (0);
 }

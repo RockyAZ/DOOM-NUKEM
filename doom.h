@@ -29,7 +29,7 @@
 
 # define CENTER_W WIDTH / 2
 # define CENTER_H HEIGHT / 2
-# define WALL 20
+# define WALL 64
 # define FOV 60
 #define SCREEN 277
 
@@ -90,6 +90,7 @@ typedef struct		s_bsp
 	int				is_solid;
 }					t_bsp;
 
+/* front to back */
 typedef struct		s_screen
 {
 	int				x1;

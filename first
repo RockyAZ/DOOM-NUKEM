@@ -1,45 +1,43 @@
-DRAW:A
-bsp->node_form->vertex.x1::4, bsp->node_form->vertex.y1::6, player->view_right.x::1.000000, player->view_right.y::-0.000000) - player->normal_right::5.000000
-bsp->node_form->vertex.x2::4, bsp->node_form->vertex.y2::3, player->view_right.x::1.000000, player->view_right.y::-0.000000) - player->normal_right::5.000000
-is_right_a::-1.000000=============is_right_b::-1.000000
-P_X::5.000000
-P_Y::0.000000
-angle_a:9.462322
-, angle_b:18.434949
-angle_a:189.246444
-, angle_b:368.698976
-LEFT DRAWING!!!!!!!!!!!!!!
-REAL_START:368.698976
-REAL_END:189.246444
+2 2
+4 4
 
-vertex.x1::4
-vertex.y1::6
+START DRAWING HERER!!!!!!::::::::::::
+DRAW:A
+is_right_a::-1.000000=============is_right_b::1.000000
+FFFIIIRRRSSSTTTT::::::::angle_a:0.894427=========angle_b:0.970143
+angle_a:26.565051
+, angle_b:14.036243
+angle_a:531.301024
+, angle_b:280.724869
+CANTER DRAWING!!!!!!!!!!!!!!
+REAL_START:531.301024
+REAL_END:280.724869
+
+vertex.x1::2
+vertex.y1::2
 vertex.x2::4
-vertex.y2::3
-player->x::5.000000
+vertex.y2::4
+player->x::3.000000
 player->y::0.000000
 
-DOT_A:-5.000000
-DOT_B:-5.000000
-DIST:-4.000000
-normal_vect_x::-1.000000
-normal_vect_y::0.000000
-2START::231.301024
-2END::410.753556
-PIF_A:6.082763
-PIF_B:3.162278
-HEIGHT_A:331.341399<<--
-HEIGHT_B:637.347906<<--
-VAR:-1.705223
-WIDTH:179.452532<<--
+normal_vect_x::0.707107
+normal_vect_y::-0.707107
+2START::68.698976
+2END::880.724869
+PIF_A:2.236068
+PIF_B:4.123106
+HEIGHT_A:825.854440<<--
+HEIGHT_B:447.882454<<--
+VAR:0.465468
+WIDTH:812.025893<<--
 player->angle_coef::20.000000
-P_X::5.000000
+P_X::3.000000
 P_Y::0.000000
 VIEW_x::0.000000
 VIEW_y::1.000000
 RIGHT_VIEW_x::1.000000
 RIGHT_VIEW_y::-0.000000
 NORMAL::0.000000
-NORMAL_RIGHT:5.000000
-___638.281460
-FALSE
+NORMAL_RIGHT:3.000000
+___447.429039
+TRUE

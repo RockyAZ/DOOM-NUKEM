@@ -46,7 +46,6 @@ void	print_normal(t_doom *doom)
 	printf("E::%f::%f\n", doom->first_form->next->next->next->next->norm.x, doom->first_form->next->next->next->next->norm.y);
 }
 
-
 void	print_normal_1(t_doom *doom)
 {
 	printf("A::%f::%f\n", doom->first_form->norm.x, doom->first_form->norm.y);
@@ -116,24 +115,24 @@ void	make_forms_1(t_doom *doom)
 
 	form = (t_form*)malloc(sizeof(t_form));
 	form->vertex.x1 = 4;
-	form->vertex.y1 = 4;
-	form->vertex.x2 = 2;
-	form->vertex.y2 = 2;
+	form->vertex.y1 = 5;
+	form->vertex.x2 = 40;
+	form->vertex.y2 = 5;
 	form->color = RED;
 	form->n = 'A';
 
-	// form->next = (t_form*)malloc(sizeof(t_form));
-	// form->next->vertex.x1 = 2;
-	// form->next->vertex.y1 = 3;
-	// form->next->vertex.x2 = 2;
-	// form->next->vertex.y2 = 2;
-	// form->next->color = GREEN;
-	// form->next->n = 'B';
-	// form->next->next = NULL;
-form->next = NULL;
-doom->form_counter = 1;
+	form->next = (t_form*)malloc(sizeof(t_form));
+	form->next->vertex.x1 = 0;
+	form->next->vertex.y1 = 8;
+	form->next->vertex.x2 = 4;
+	form->next->vertex.y2 = 8;
+	form->next->color = GREEN;
+	form->next->n = 'B';
+	form->next->next = NULL;
+// form->next = NULL;
+// doom->form_counter = 1;
 
-	// doom->form_counter = 2;
+	doom->form_counter = 2;
 	doom->first_form = form;
 }
 
