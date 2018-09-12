@@ -261,7 +261,6 @@ printf("NORMAL::%f\nNORMAL_RIGHT:%f\n", player->normal, player->normal_right);
 }
 
 /*	отношение градуса к экарну занести в таблицу	*/
-/////////////////////////-->>BACK-TO-FRONT<<--///////////////////////////////////
 void	draw_polygon(t_bsp *bsp, t_player *player, t_doom *doom)
 {
 	double	angle_a;
@@ -270,9 +269,9 @@ void	draw_polygon(t_bsp *bsp, t_player *player, t_doom *doom)
 	t_vector vect_b;
 	double is_right_a;
 	double is_right_b;
-
-is_right_a = dot_prod(bsp->node_form->vertex.x1, bsp->node_form->vertex.y1, player->view_right.x, player->view_right.y) - player->normal_right;
-is_right_b = dot_prod(bsp->node_form->vertex.x2, bsp->node_form->vertex.y2, player->view_right.x, player->view_right.y) - player->normal_right;
+printf("%f\n", bsp->node_form->dist);
+	is_right_a = dot_prod(bsp->node_form->vertex.x1, bsp->node_form->vertex.y1, player->view_right.x, player->view_right.y) - player->normal_right;
+	is_right_b = dot_prod(bsp->node_form->vertex.x2, bsp->node_form->vertex.y2, player->view_right.x, player->view_right.y) - player->normal_right;
 	printf("is_right_a::%f=============is_right_b::%f\n", is_right_a, is_right_b);
 	// printf("P_X::%f\nP_Y::%f\n", player->x, player->y);
 	vect_a = normalizing(bsp->node_form->vertex.x1 - player->x, bsp->node_form->vertex.y1 - player->y);
@@ -316,6 +315,7 @@ is_right_b = dot_prod(bsp->node_form->vertex.x2, bsp->node_form->vertex.y2, play
 	}
 }
 
+/////////////////////////-->>BACK-TO-FRONT<<--///////////////////////////////////
 void	recursive_draw(t_bsp *bsp, t_player *player, t_doom *doom)
 {
 	if (bsp->is_leaf)

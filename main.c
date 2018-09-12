@@ -160,7 +160,6 @@ make_forms(doom);
 
 	print_bsp(doom->bsp);
 	drawing_wall(doom);
-	// system ("leaks doom-nukem");
 unsigned long long int rr = 0;
 double old;
 	while (doom->quit == 0)
@@ -212,6 +211,7 @@ rr++;
 printf("%llu\n", rr);
 	}
 	printf("%d\n", doom->quit);
+	// system ("leaks doom-nukem");
 	// SDL_DestroyRenderer(doom->ren);
 	// SDL_DestroyWindow(doom->win);
 	SDL_Quit();

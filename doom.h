@@ -72,9 +72,10 @@ typedef struct		s_vert
 typedef struct		s_form
 {
 	double			dist;
+	double			len;
 	t_vector		norm;
 	t_vert			vertex;
-unsigned int color;
+unsigned int	color;
 	struct s_form	*next;
 	t_vector		center;
 	char n;

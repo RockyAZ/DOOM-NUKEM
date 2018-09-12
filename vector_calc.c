@@ -62,7 +62,7 @@ void	vector_prep(t_form *form)
 {
 	int		center_x;
 	int		center_y;
-	double	len;
+	// double	len;
 
 	center_x = form->vertex.x2 - form->vertex.x1;
 	center_y = form->vertex.y2 - form->vertex.y1;
@@ -78,6 +78,7 @@ void	vector_prep(t_form *form)
 	// form->norm.y = center_y / len;
 	form->norm = normalizing(center_x, center_y);
 	form->dist = dot_prod(form->vertex.x1, form->vertex.y1, form->norm.x, form->norm.y);
+	form->len = pifagor(form->vertex.x1 - form->vertex.x2, form->vertex.y1, form->vertex.y2);
 	form->center.x = (form->vertex.x1 + form->vertex.x2) >> 1;
 	form->center.y = (form->vertex.y1 + form->vertex.y2) >> 1;
 }
