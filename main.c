@@ -114,25 +114,25 @@ void	make_forms_1(t_doom *doom)
 	t_form	*form;
 
 	form = (t_form*)malloc(sizeof(t_form));
-	form->vertex.x1 = 4;
-	form->vertex.y1 = 5;
-	form->vertex.x2 = 40;
-	form->vertex.y2 = 5;
+	form->vertex.x1 = 1;
+	form->vertex.y1 = 2;
+	form->vertex.x2 = 5;
+	form->vertex.y2 = 2;
 	form->color = RED;
 	form->n = 'A';
 
-	form->next = (t_form*)malloc(sizeof(t_form));
-	form->next->vertex.x1 = 0;
-	form->next->vertex.y1 = 8;
-	form->next->vertex.x2 = 4;
-	form->next->vertex.y2 = 8;
-	form->next->color = GREEN;
-	form->next->n = 'B';
-	form->next->next = NULL;
-// form->next = NULL;
-// doom->form_counter = 1;
+	// form->next = (t_form*)malloc(sizeof(t_form));
+	// form->next->vertex.x1 = 4;
+	// form->next->vertex.y1 = 4;
+	// form->next->vertex.x2 = 7;
+	// form->next->vertex.y2 = 4;
+	// form->next->color = GREEN;
+	// form->next->n = 'B';
+	// form->next->next = NULL;
+form->next = NULL;
+doom->form_counter = 1;
 
-	doom->form_counter = 2;
+	// doom->form_counter = 2;
 	doom->first_form = form;
 }
 
@@ -144,13 +144,13 @@ int	main(int ac, char **av)
 	doom_prepare(&doom ,atoi(av[1]), atoi(av[2]));
 
 	SDL_Init(SDL_INIT_VIDEO);
-	doom->win = SDL_CreateWindow("DOOM-NUKEM, BITCH!!", 100, 100, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
+	doom->win = SDL_CreateWindow("DOOM-NUKEM, BITCH!!", 0, 0, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
 	doom->ren = SDL_CreateRenderer(doom->win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	doom->screen = SDL_CreateTexture(doom->ren, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, WIDTH, HEIGHT);
 	SDL_SetTextureBlendMode(doom->screen, SDL_BLENDMODE_BLEND);
 
-make_forms(doom);
-// make_forms_1(doom);
+// make_forms(doom);
+make_forms_1(doom);
 	
 	calc_forms(doom->first_form);
 	first_bsp(doom);
@@ -162,8 +162,10 @@ make_forms(doom);
 	drawing_wall(doom);
 unsigned long long int rr = 0;
 double old;
+int fps;
 	while (doom->quit == 0)
 	{
+fps = SDL_GetTicks();
 rr++;
 		SDL_SetRenderDrawColor(doom->ren, 0, 0, 0, 0);
 		SDL_RenderClear(doom->ren);
@@ -208,6 +210,7 @@ rr++;
 				doom->buffer[j][h] = 0;
 		SDL_RenderCopy(doom->ren, doom->screen, NULL, NULL);
 		SDL_RenderPresent(doom->ren);
+printf("FPS:%d\n", 1000 /(SDL_GetTicks() - fps));
 printf("%llu\n", rr);
 	}
 	printf("%d\n", doom->quit);

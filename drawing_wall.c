@@ -347,3 +347,28 @@ void	drawing_wall(t_doom *doom)
 	recursive_draw(doom->bsp, doom->gg, doom);
 	// printf("PLAYER ON::%c<<<---\nin_front??%f<<<---\n", doom->gg->pos->node_form->n, doom->gg->front);
 }
+
+	// if (is_right_a > 0 && is_right_b > 0)
+	// {
+	// 	if (angle_a > angle_b)
+	// 	{
+	// 		cp = vert_a;
+	// 		vert_a = vert_b;
+	// 		vert_b = cp;
+	// 	}
+	// }
+	// else if (is_right_a < 0 && is_right_b < 0)
+	// {
+	// 	if (angle_a < angle_b)
+	// 	{
+	// 		cp = vert_a;
+	// 		vert_a = vert_b;
+	// 		vert_b = cp;
+	// 	}
+	// }
+	// else if (is_right_a > 0 && is_right_b < 0)
+	// {
+	// 	cp = vert_a;
+	// 	vert_a = vert_b;
+	// 	vert_b = cp;
+	// }

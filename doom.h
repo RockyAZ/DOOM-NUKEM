@@ -13,12 +13,12 @@
 #ifndef DOOM_H
 # define DOOM_H
 
-// # define WIDTH 320
-// # define HEIGHT 200
+# define WIDTH 320
+# define HEIGHT 200
 // # define WIDTH 640
 // # define HEIGHT 400
-# define WIDTH 1200
-# define HEIGHT 1080
+// # define WIDTH 1200
+// # define HEIGHT 1080
 
 #define YELLOW 4294967040
 #define RED 4294901760
@@ -29,7 +29,7 @@
 
 # define CENTER_W WIDTH / 2
 # define CENTER_H HEIGHT / 2
-# define WALL 64
+# define WALL 1
 # define FOV 60
 #define SCREEN 277
 
@@ -149,6 +149,7 @@ double				ft_tan(double angle);
 double				ft_cos(double angle);
 double				ft_sin(double angle);
 double				acos_degree(double c);
+double	t_cos(double a, double c, double angle);
 
 //additional functions::
 double				ft_min_d(double x, double y);

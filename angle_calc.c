@@ -31,3 +31,8 @@ double	acos_degree(double c)
 {
 	return (acos(c) * 180 / M_PI);
 }
+
+double	t_cos(double a, double b, double angle)
+{
+	return (sqrt( (powf(a, 2) + powf(b, 2)) - (2 * a * b) * ft_cos(angle) ));
+}
