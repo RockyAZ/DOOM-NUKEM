@@ -129,6 +129,7 @@ printf("PAB:%f\n", pab);
 printf("SCEOND_COEF:%f\n", coef);
 printf("len_a:%f\n", len_a);
 printf("angle_a:%f\n", angle_a);
+printf("pab:%f\n", pab);
 			new_len = t_cos(len_a, coef * (30 - angle_a), pab);
 printf("NEW_LEN:%f\n", new_len);
 			render_wall(bsp->node_form, CENTER_W + angle_a * player->angle_coef, WIDTH, WALL / len_a * SCREEN, WALL / new_len * SCREEN, doom, fabs(angle_a * player->angle_coef - 30 * player->angle_coef));
@@ -204,9 +205,9 @@ printf("LEN_A::%f\nLEN_B::%f\n", len_a, len_b);
 printf("FIRST_COEF:%f\n", coef);
 		if (angle_a > 30 && angle_b > 30)
 		{
-printf("\nangle_a > 30 && angle_b > 30\n\n");
-			// pab = acos_degree((len_b * len_b + bsp->node_form->len * bsp->node_form->len - len_a * len_a) / (2 * len_b * bsp->node_form->len));
-			pab = acos_degree((len_a * len_a + bsp->node_form->len * bsp->node_form->len - len_b * len_b) / (2 * len_a * bsp->node_form->len));
+printf("angle_a > 30 && angle_b > 30\n");
+			pab = acos_degree((len_b * len_b + bsp->node_form->len * bsp->node_form->len - len_a * len_a) / (2 * len_b * bsp->node_form->len));
+			// pab = acos_degree((len_a * len_a + bsp->node_form->len * bsp->node_form->len - len_b * len_b) / (2 * len_a * bsp->node_form->len));
 			pba = 180 - pab - coef;
 printf("pab:%f<<<<<<<<<<<<<\n", pab);
 printf("pba:%f<<<<<<<<<<<<<\n", pba);
@@ -222,9 +223,8 @@ printf("NEW_LEN_2:%f\n", new_len_2);
 		}
 		else if (angle_a > 30)
 		{
-printf("\nangle_a > 30\n\n");
-			pba = acos_degree((len_b * len_b + bsp->node_form->len * bsp->node_form->len - len_a * len_a) / (2 * len_b * bsp->node_form->len));
-printf("PBA:%f\n", pba);
+printf("angle_a > 30\n");
+			pba = acos_degree((len_a * len_a + bsp->node_form->len * bsp->node_form->len - len_b * len_b) / (2 * len_a * bsp->node_form->len));
 			coef = bsp->node_form->len / coef;
 printf("SCEOND_COEF:%f\n", coef);
 			new_len = t_cos(len_b, bsp->node_form->len - coef * (angle_a - 30), pba);
@@ -232,10 +232,8 @@ printf("SCEOND_COEF:%f\n", coef);
 		}
 		else if (angle_b > 30)
 		{
-printf("\nangle_b > 30\n\n");
-			pab = acos_degree((len_a * len_a + bsp->node_form->len * bsp->node_form->len - len_b * len_b) / (2 * len_a * bsp->node_form->len));
-printf("PAB:%f\n", pab);
-
+printf("angle_b > 30\n");
+			pab = acos_degree((len_b * len_b + bsp->node_form->len * bsp->node_form->len - len_a * len_a) / (2 * len_b * bsp->node_form->len));
 			coef = bsp->node_form->len / coef;
 printf("SCEOND_COEF:%f\n", coef);
 			new_len = t_cos(len_a, coef * (30 + angle_a), pab);
