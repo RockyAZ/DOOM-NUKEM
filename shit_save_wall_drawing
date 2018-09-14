@@ -57,6 +57,7 @@ printf("\nSTART:%f\nEND:%f\nA_H:%f\nB_H:%f\nWIDTH:%f\n", start, end, a_h, b_h, w
 void	draw_polygon(t_bsp *bsp, t_player *player, t_doom *doom)
 {
 printf("++++++++++++++++++++++++++++++++++\n");
+printf("NAME::%c\n", bsp->node_form->n);
 printf("P_X:%f\nP_Y:%f\n", player->x, player->y);
 	t_vector vect_a;
 	t_vector vect_b;
@@ -92,7 +93,8 @@ double new_len_2;
 	vert_a.y = bsp->node_form->vertex.y1;
 	vert_b.x = bsp->node_form->vertex.x2;
 	vert_b.y = bsp->node_form->vertex.y2;
-
+	if ((player->x == vert_a.x && player->y == vert_a.y) || (player->x == vert_b.x && player->y == vert_b.y))
+		return ;
 	is_right_a = dot_prod(bsp->node_form->vertex.x1, bsp->node_form->vertex.y1, player->view_right.x, player->view_right.y) - player->normal_right;
 	is_right_b = dot_prod(bsp->node_form->vertex.x2, bsp->node_form->vertex.y2, player->view_right.x, player->view_right.y) - player->normal_right;
 
@@ -129,7 +131,6 @@ printf("PAB:%f\n", pab);
 printf("SCEOND_COEF:%f\n", coef);
 printf("len_a:%f\n", len_a);
 printf("angle_a:%f\n", angle_a);
-printf("pab:%f\n", pab);
 			new_len = t_cos(len_a, coef * (30 - angle_a), pab);
 printf("NEW_LEN:%f\n", new_len);
 			render_wall(bsp->node_form, CENTER_W + angle_a * player->angle_coef, WIDTH, WALL / len_a * SCREEN, WALL / new_len * SCREEN, doom, fabs(angle_a * player->angle_coef - 30 * player->angle_coef));
@@ -137,9 +138,11 @@ printf("NEW_LEN:%f\n", new_len);
 		else
 		{
 printf("ELSE!!!\n");
+printf("angle_a:%f\n", angle_a);
+printf("angle_b:%f\n", angle_b);
 			angle_a = angle_a * player->angle_coef;
 			angle_b = angle_b * player->angle_coef;
-			render_wall(bsp->node_form, CENTER_W + angle_a, CENTER_W + angle_b, WALL / len_a * SCREEN, WALL / len_b * SCREEN, doom, fabs(angle_a * player->angle_coef - angle_b * player->angle_coef));
+			render_wall(bsp->node_form, CENTER_W + angle_a, CENTER_W + angle_b, WALL / len_a * SCREEN, WALL / len_b * SCREEN, doom, fabs(angle_b - angle_a));
 		}
 	}
 ///////////////////////////////ALL LEFT
@@ -162,26 +165,27 @@ printf("LEN_A::%f\nLEN_B::%f\n", len_a, len_b);
 		{
 			coef = ft_max_d(angle_a, angle_b) - ft_min_d(angle_a, angle_b);
 printf("FIRST_COEF:%f\n", coef);
-			// pba = acos_degree((len_a * len_a + bsp->node_form->len * bsp->node_form->len - len_b * len_b) / (2 * len_a * bsp->node_form->len));
-			pba = acos_degree((len_b * len_b + bsp->node_form->len * bsp->node_form->len - len_a * len_a) / (2 * len_b * bsp->node_form->len));
-printf("PBA:%f\n", pba);
+			// pba = acos_degree((len_b * len_b + bsp->node_form->len * bsp->node_form->len - len_a * len_a) / (2 * len_b * bsp->node_form->len));
+			pab = acos_degree((len_a * len_a + bsp->node_form->len * bsp->node_form->len - len_b * len_b) / (2 * len_a * bsp->node_form->len));
+// printf("PBA:%f\n", pba);
+printf("PAB:%f\n", pab);
 			// pab = 180 - pab - coef;//acos_degree(len_a * len_a + bsp->node_form->len * bsp->node_form->len - len_b * len_b);
 			coef = bsp->node_form->len / coef;
 printf("SCEOND_COEF:%f\n", coef);
 printf("len_b:%f\n", len_b);
 printf("angle_b:%f\n", angle_b);
 printf("pba:%f\n", pba);
-			// new_len = t_cos(len_b, bsp->node_form->len - coef * (angle_a - 30), pba);
-			new_len = t_cos(len_b, bsp->node_form->len - coef * (30 - angle_b), pba);
+			new_len = t_cos(len_a, coef * (angle_a - 30), pab);
+			// new_len = t_cos(len_b, bsp->node_form->len - coef * (30 - angle_b), pba);			
 printf("NEW_LEN:%f\n", new_len);
-/**/		render_wall(bsp->node_form, 0, CENTER_W - angle_b * player->angle_coef, WALL / new_len * SCREEN, WALL / len_b * SCREEN, doom, fabs(30 * player->angle_coef - angle_b * player->angle_coef));
+/**/		render_wall(bsp->node_form, 0, CENTER_W - angle_b * player->angle_coef, WALL / new_len * SCREEN, WALL / len_b * SCREEN, doom, (30 - angle_b) * player->angle_coef);
 		}
 		else
 		{
 printf("ELSE!!!\n");
 			angle_a = angle_a * player->angle_coef;
 			angle_b = angle_b * player->angle_coef;
-			render_wall(bsp->node_form, CENTER_W - angle_a, CENTER_W - angle_b, WALL / len_a * SCREEN, WALL / len_b * SCREEN, doom, fabs(angle_a * player->angle_coef - angle_b * player->angle_coef));
+			render_wall(bsp->node_form, CENTER_W - angle_a, CENTER_W - angle_b, WALL / len_a * SCREEN, WALL / len_b * SCREEN, doom, fabs(angle_a - angle_b));
 		}
 	}
 ///////////////////////////////ONE TO LEFT OTHER TO RIGHT
@@ -205,35 +209,42 @@ printf("LEN_A::%f\nLEN_B::%f\n", len_a, len_b);
 printf("FIRST_COEF:%f\n", coef);
 		if (angle_a > 30 && angle_b > 30)
 		{
-printf("angle_a > 30 && angle_b > 30\n");
-			pab = acos_degree((len_b * len_b + bsp->node_form->len * bsp->node_form->len - len_a * len_a) / (2 * len_b * bsp->node_form->len));
-			// pab = acos_degree((len_a * len_a + bsp->node_form->len * bsp->node_form->len - len_b * len_b) / (2 * len_a * bsp->node_form->len));
+printf("\nangle_a > 30 && angle_b > 30\n\n");
+			// pab = acos_degree((len_b * len_b + bsp->node_form->len * bsp->node_form->len - len_a * len_a) / (2 * len_b * bsp->node_form->len));
+			pab = acos_degree((len_a * len_a + bsp->node_form->len * bsp->node_form->len - len_b * len_b) / (2 * len_a * bsp->node_form->len));
 			pba = 180 - pab - coef;
 printf("pab:%f<<<<<<<<<<<<<\n", pab);
 printf("pba:%f<<<<<<<<<<<<<\n", pba);
 			coef = bsp->node_form->len / coef;
 printf("SCEOND_COEF:%f\n", coef);
-// /*len_a*/		new_len = t_cos(len_a, coef * (angle_a - 30), pab);
-// /*len_b*/		new_len_2 = t_cos(len_b, coef * (angle_a + 30), pba);
-/*len_a*/		new_len =   t_cos(len_a, bsp->node_form->len - coef * (angle_a - 30), pab);
-/*len_b*/		new_len_2 = t_cos(len_b, bsp->node_form->len - coef * (angle_b - 30), pba);
+/*len_a*/		new_len = t_cos(len_a, coef * (angle_a - 30), pab);
+/*len_b*/		new_len_2 = t_cos(len_b, coef * (angle_b - 30), pba);
+// /*len_a*/		new_len =   t_cos(len_a, bsp->node_form->len - coef * (angle_a - 30), pab);
+// /*len_b*/		new_len_2 = t_cos(len_b, bsp->node_form->len - coef * (angle_b - 30), pba);
 printf("NEW_LEN:%f\n", new_len);
 printf("NEW_LEN_2:%f\n", new_len_2);
 			render_wall(bsp->node_form, 0, WIDTH, WALL / new_len * SCREEN, WALL / new_len_2 * SCREEN, doom, WIDTH);
 		}
 		else if (angle_a > 30)
 		{
-printf("angle_a > 30\n");
-			pba = acos_degree((len_a * len_a + bsp->node_form->len * bsp->node_form->len - len_b * len_b) / (2 * len_a * bsp->node_form->len));
+printf("\nangle_a > 30\n\n");
+			// pba = acos_degree((len_b * len_b + bsp->node_form->len * bsp->node_form->len - len_a * len_a) / (2 * len_b * bsp->node_form->len));
+			pab = acos_degree((len_a * len_a + bsp->node_form->len * bsp->node_form->len - len_b * len_b) / (2 * len_a * bsp->node_form->len));			
+// printf("PBA:%f\n", pba);
+printf("PAB:%f\n", pab);
 			coef = bsp->node_form->len / coef;
 printf("SCEOND_COEF:%f\n", coef);
-			new_len = t_cos(len_b, bsp->node_form->len - coef * (angle_a - 30), pba);
+			// new_len = t_cos(len_b, bsp->node_form->len - coef * (angle_a - 30), pba);
+			new_len = t_cos(len_a, coef * (angle_a - 30), pab);
+printf("NEW_LEN:%f\n", new_len);
 			render_wall(bsp->node_form, 0, CENTER_W + angle_b * player->angle_coef, WALL / new_len * SCREEN, WALL / len_b * SCREEN, doom, 30 * player->angle_coef + angle_b * player->angle_coef);
 		}
 		else if (angle_b > 30)
 		{
-printf("angle_b > 30\n");
-			pab = acos_degree((len_b * len_b + bsp->node_form->len * bsp->node_form->len - len_a * len_a) / (2 * len_b * bsp->node_form->len));
+printf("\nangle_b > 30\n\n");
+			pab = acos_degree((len_a * len_a + bsp->node_form->len * bsp->node_form->len - len_b * len_b) / (2 * len_a * bsp->node_form->len));
+printf("PAB:%f\n", pab);
+
 			coef = bsp->node_form->len / coef;
 printf("SCEOND_COEF:%f\n", coef);
 			new_len = t_cos(len_a, coef * (30 + angle_a), pab);

@@ -40,10 +40,15 @@ cp_doom->scr_buf = (t_screen*)malloc(sizeof(t_screen));//here malloc for t_scree
 void	print_normal(t_doom *doom)
 {
 	printf("A::%f::%f\n", doom->first_form->norm.x, doom->first_form->norm.y);
+	printf("dist:%f\n", doom->first_form->dist);
 	printf("B::%f::%f\n", doom->first_form->next->norm.x, doom->first_form->next->norm.y);
+	printf("dist:%f\n", doom->first_form->next->dist);
 	printf("C::%f::%f\n", doom->first_form->next->next->norm.x, doom->first_form->next->next->norm.y);
+	printf("dist:%f\n", doom->first_form->next->next->dist);
 	printf("D::%f::%f\n", doom->first_form->next->next->next->norm.x, doom->first_form->next->next->next->norm.y);
+	printf("dist:%f\n", doom->first_form->next->next->next->dist);
 	printf("E::%f::%f\n", doom->first_form->next->next->next->next->norm.x, doom->first_form->next->next->next->next->norm.y);
+	printf("dist:%f\n", doom->first_form->next->next->next->next->dist);
 }
 
 void	print_normal_1(t_doom *doom)
@@ -109,15 +114,58 @@ void	make_forms(t_doom *doom)
 	doom->form_counter = 5;
 }
 
-void	make_forms_1(t_doom *doom)
+//cube
+
+void	make_forms_2(t_doom *doom)
 {
 	t_form	*form;
 
 	form = (t_form*)malloc(sizeof(t_form));
 	form->vertex.x1 = 1;
-	form->vertex.y1 = 2;
-	form->vertex.x2 = 5;
-	form->vertex.y2 = 2;
+	form->vertex.y1 = 1;
+	form->vertex.x2 = 1;
+	form->vertex.y2 = 4;
+	form->color = RED;
+	form->n = 'A';
+
+	form->next = (t_form*)malloc(sizeof(t_form));
+	form->next->vertex.x1 = 1;
+	form->next->vertex.y1 = 4;
+	form->next->vertex.x2 = 4;
+	form->next->vertex.y2 = 4;
+	form->next->color = BLUE;
+	form->next->n = 'B';
+
+	form->next->next = (t_form*)malloc(sizeof(t_form));
+	form->next->next->vertex.x1 = 4;
+	form->next->next->vertex.y1 = 4;
+	form->next->next->vertex.x2 = 4;
+	form->next->next->vertex.y2 = 1;
+	form->next->next->color = GREEN;
+	form->next->next->n = 'C';
+
+	form->next->next->next = (t_form*)malloc(sizeof(t_form));
+	form->next->next->next->vertex.x1 = 4;
+	form->next->next->next->vertex.y1 = 1;
+	form->next->next->next->vertex.x2 = 1;
+	form->next->next->next->vertex.y2 = 1;
+	form->next->next->next->color = BLU;
+	form->next->next->next->n = 'D';
+	form->next->next->next->next = NULL;
+
+	doom->first_form = form;
+	doom->form_counter = 4;
+}
+
+void	make_forms_1(t_doom *doom)
+{
+	t_form	*form;
+
+	form = (t_form*)malloc(sizeof(t_form));
+	form->vertex.x1 = 2;
+	form->vertex.y1 = 1;
+	form->vertex.x2 = 7;
+	form->vertex.y2 = 6;
 	form->color = RED;
 	form->n = 'A';
 
@@ -150,15 +198,15 @@ int	main(int ac, char **av)
 	SDL_SetTextureBlendMode(doom->screen, SDL_BLENDMODE_BLEND);
 
 // make_forms(doom);
-make_forms_1(doom);
-	
+// make_forms_1(doom);
+make_forms_2(doom);	
 	calc_forms(doom->first_form);
 	first_bsp(doom);
 
 // print_normal(doom);
 // print_normal_1(doom);
-
-	print_bsp(doom->bsp);
+// exit(0);
+	// print_bsp(doom->bsp);
 	drawing_wall(doom);
 unsigned long long int rr = 0;
 double old;
@@ -197,6 +245,7 @@ rr++;
 
 			else if (doom->e.type == SDL_KEYDOWN && doom->e.key.keysym.sym == SDLK_ESCAPE)
 				doom->quit = 1;
+	doom->gg->normal = dot_prod(doom->gg->x, doom->gg->y, doom->gg->view.x, doom->gg->view.y);
 	doom->gg->view_right.x = doom->gg->view.y;
 	doom->gg->view_right.y = doom->gg->view.x * -1;
 	doom->gg->normal_right = dot_prod(doom->gg->x, doom->gg->y, doom->gg->view_right.x, doom->gg->view_right.y);
@@ -210,10 +259,9 @@ rr++;
 				doom->buffer[j][h] = 0;
 		SDL_RenderCopy(doom->ren, doom->screen, NULL, NULL);
 		SDL_RenderPresent(doom->ren);
-printf("FPS:%d\n", 1000 /(SDL_GetTicks() - fps));
+printf("FPS:%d\n", 1000 / (SDL_GetTicks() - fps));
 printf("%llu\n", rr);
 	}
-	printf("%d\n", doom->quit);
 	// system ("leaks doom-nukem");
 	// SDL_DestroyRenderer(doom->ren);
 	// SDL_DestroyWindow(doom->win);

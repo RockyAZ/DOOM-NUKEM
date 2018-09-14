@@ -42,7 +42,12 @@ double	dot_prod(double x1, double y1, double x2, double y2)
 
 double	pifagor(double a, double b)
 {
-	return (sqrt(powf(a, 2) + powf(b, 2)));
+	double res;
+
+	res = sqrt(powf(a, 2) + powf(b, 2));
+	if (res == 0)
+		return (1);
+	return (res);
 }
 
 t_vector normalizing(double x, double y)
@@ -51,8 +56,6 @@ t_vector normalizing(double x, double y)
 	double len;
 
 	len = pifagor(x, y);
-	if (len == 0)
-		len = 1;
 	res.x = x / len;
 	res.y = y / len;
 	return (res);
