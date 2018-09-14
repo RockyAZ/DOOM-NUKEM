@@ -111,7 +111,7 @@ printf("IS_RIGHT_A:%f\n", is_right_a);
 printf("IS_RIGHT_B:%f\n", is_right_b);
 	if (angle_a >= 90 && angle_b >= 90)
 		return ;
-	// else if (angle_a > 30 && angle_b > 90)
+// else if (angle_a > 30 && angle_b > 90)
 	else if (is_right_a >= 0 && is_right_b >= 0 && angle_a > 30 && angle_b > 30)
 		return ;
 	else if (is_right_a <= 0 && is_right_b <= 0 && angle_a > 30 && angle_b > 30)
