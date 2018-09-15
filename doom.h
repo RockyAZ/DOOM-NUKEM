@@ -39,6 +39,25 @@
 ** 		B
 */
 
+/*
+** SIMPLE FIGURE LOOKS LIKE IT::
+**
+**      			  ^        <-perpendicular normal
+**         B4         |  >d<    A4
+**         A1_________|________B3
+**           \                 /
+**         >a<\               />c<
+**          <--\             /-->       <-"perpendicular" normals 
+**              \           /
+**	           B1\_________/A3
+**	        	 A2   |>b< B2
+**	        		  |			<-perpendicular normal
+**	        		 \ /
+**
+** note that every vector's {>a<|>b<|>c<|>d<} perpendicular normal line
+** looks at the right side!!	
+*/
+
 // # define WIDTH 320
 // # define HEIGHT 200
 // # define WIDTH 640
@@ -55,7 +74,7 @@
 
 # define CENTER_W WIDTH / 2
 # define CENTER_H HEIGHT / 2
-# define WALL 1
+# define WALL 32
 # define FOV 60
 #define SCREEN (int)(CENTER_W / (tan((FOV / 2 * 2 * M_PI) / 360)))
 // #define SCREEN 277
@@ -137,11 +156,12 @@ typedef struct		s_player
 
 	double			screen_coef;
 	double			angle_coef;
-	int				found_p;
+	// int				found_p;
 	double			x;
 	double			y;
-	int				angle;
-	int				front;
+	int				z;
+	// int				angle;
+	// int				front;
 }					t_player;
 
 typedef struct		s_doom

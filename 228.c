@@ -13,10 +13,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-double	acos_degree(double c)
-{
-	return (acos(c) * 180 / M_PI);
-}
+// double	acos_degree(double c)
+// {
+// 	return (acos(c) * 180 / M_PI);
+// }
 
 // int main()
 // {
@@ -36,8 +36,16 @@ double	acos_degree(double c)
 //     return (0);
 // }
 
+int *string()
+{
+    int i[3] = {1, 2, 3};
+    return (&i[1]);
+}
+
 int main()
 {
-    printf("%f\n", acos_degree(0.242536));
+    int str2 = *string();
+
+    printf("%d\n", str2);
     return (0);
 }

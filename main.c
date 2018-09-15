@@ -24,13 +24,13 @@ void	doom_prepare(t_doom **doom,int x,int y)
 	cp_doom->gg = (t_player*)malloc(sizeof(t_player));
 	cp_doom->gg->x = x;
 	cp_doom->gg->y = y;
+	cp_doom->gg->z = 32;
 	cp_doom->gg->view.x = 0;
 	cp_doom->gg->view.y = 1;
 	cp_doom->gg->normal = dot_prod(cp_doom->gg->x, cp_doom->gg->y, cp_doom->gg->view.x, cp_doom->gg->view.y);
 	cp_doom->gg->view_right.x = cp_doom->gg->view.y;
 	cp_doom->gg->view_right.y = cp_doom->gg->view.x * -1;
 	cp_doom->gg->normal_right = dot_prod(cp_doom->gg->x, cp_doom->gg->y, cp_doom->gg->view_right.x, cp_doom->gg->view_right.y);
-	cp_doom->gg->angle = 180;
 	cp_doom->gg->angle_coef = (float)WIDTH / (float)FOV;
 	cp_doom->gg->screen_coef = FOV / WIDTH;
 cp_doom->scr_buf = (t_screen*)malloc(sizeof(t_screen));//here malloc for t_screen?!?!?
@@ -162,10 +162,10 @@ void	make_forms_1(t_doom *doom)
 	t_form	*form;
 
 	form = (t_form*)malloc(sizeof(t_form));
-	form->vertex.x1 = 2;
+	form->vertex.x1 = 1;
 	form->vertex.y1 = 1;
-	form->vertex.x2 = 7;
-	form->vertex.y2 = 6;
+	form->vertex.x2 = 2;
+	form->vertex.y2 = 1;
 	form->color = RED;
 	form->n = 'A';
 
