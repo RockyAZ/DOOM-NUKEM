@@ -13,6 +13,32 @@
 #ifndef DOOM_H
 # define DOOM_H
 
+/*
+** VECTOR A-B -->normal to vector directed ONLY to right side, like this::
+** 		B
+** 		| 
+** 		|
+** 		|
+** 		|--->             <<-- this is perpendicular normal to vector A-B
+** 		|
+** 		|
+** 		|
+** 		A
+*/
+
+/*
+** OR LIKE THIS
+** 		A
+** 		| 
+** 		|
+** 		|
+** 	<---|             <<-- this is perpendicular normal to vector A-B
+** 		|
+** 		|
+** 		|
+** 		B
+*/
+
 // # define WIDTH 320
 // # define HEIGHT 200
 // # define WIDTH 640

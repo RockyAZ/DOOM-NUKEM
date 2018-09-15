@@ -197,15 +197,14 @@ int	main(int ac, char **av)
 	doom->screen = SDL_CreateTexture(doom->ren, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, WIDTH, HEIGHT);
 	SDL_SetTextureBlendMode(doom->screen, SDL_BLENDMODE_BLEND);
 
-// make_forms(doom);
+make_forms(doom);
 // make_forms_1(doom);
-make_forms_2(doom);	
+// make_forms_2(doom);
 	calc_forms(doom->first_form);
 	first_bsp(doom);
 
 // print_normal(doom);
 // print_normal_1(doom);
-// exit(0);
 	// print_bsp(doom->bsp);
 	drawing_wall(doom);
 unsigned long long int rr = 0;

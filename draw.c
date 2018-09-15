@@ -82,6 +82,7 @@ double cp_2;
 
 double pba;
 double pab;
+
 double new_len;
 double new_len_2;
 
@@ -96,6 +97,7 @@ double check_b;
 	angle_a = acos_degree(angle_a);
 	angle_b = acos_degree(angle_b);
 
+
 	vert_a.x = bsp->node_form->vertex.x1;
 	vert_a.y = bsp->node_form->vertex.y1;
 	vert_b.x = bsp->node_form->vertex.x2;
@@ -104,8 +106,17 @@ double check_b;
 		return ;
 	is_right_a = dot_prod(bsp->node_form->vertex.x1, bsp->node_form->vertex.y1, player->view_right.x, player->view_right.y) - player->normal_right;
 	is_right_b = dot_prod(bsp->node_form->vertex.x2, bsp->node_form->vertex.y2, player->view_right.x, player->view_right.y) - player->normal_right;
-  printf("angle_a:%f\n", angle_a);
-  printf("angle_b:%f\n", angle_b);
+
+len_a = pifagor(player->x - vert_a.x, player->y - vert_a.y);
+len_b = pifagor(player->x - vert_b.x, player->y - vert_b.y);
+printf("angle_a:%f<<--\n", angle_a);
+printf("angle_b:%f<<--\n", angle_b);
+pab = acos_degree((len_a * len_a + bsp->node_form->len * bsp->node_form->len - len_b * len_b) / (2 * len_a * bsp->node_form->len));
+printf("PAB::%f<<--\n", pab);
+pba = 180 - pab - (angle_a + angle_b);
+printf("PBA::%f<<--\n", pba);
+if ((pba <= 0 && angle_a >= 30) && (pba <= 0 && angle_b >= 30))
+	return ;
 
 printf("IS_RIGHT_A:%f\n", is_right_a);
 printf("IS_RIGHT_B:%f\n", is_right_b);
@@ -221,8 +232,8 @@ printf("FIRST_COEF:%f\n", coef);
 printf("\nangle_a > 30 && angle_b > 30\n\n");
 			pab = acos_degree((len_a * len_a + bsp->node_form->len * bsp->node_form->len - len_b * len_b) / (2 * len_a * bsp->node_form->len));
 			pba = 180 - pab - coef;
-printf("pab:%f<<<<<<<<<<<<<\n", pab);
-printf("pba:%f<<<<<<<<<<<<<\n", pba);
+printf("pab:%f\n", pab);
+printf("pba:%f\n", pba);
 			coef = bsp->node_form->len / coef;
 printf("SCEOND_COEF:%f\n", coef);
 /*len_a*/		new_len = t_cos(len_a, coef * (angle_a - 30), pab);
@@ -234,7 +245,7 @@ printf("NEW_LEN_2:%f\n", new_len_2);
 		else if (angle_a > 30)
 		{
 printf("\nangle_a > 30\n\n");
-			pab = acos_degree((len_a * len_a + bsp->node_form->len * bsp->node_form->len - len_b * len_b) / (2 * len_a * bsp->node_form->len));			
+			pab = acos_degree((len_a * len_a + bsp->node_form->len * bsp->node_form->len - len_b * len_b) / (2 * len_a * bsp->node_form->len));
 printf("PBA:%f\n", pba);
 printf("PAB:%f\n", pab);
 			coef = bsp->node_form->len / coef;
