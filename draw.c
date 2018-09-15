@@ -52,6 +52,10 @@ void	render_wall(t_form *form, double start, double end, double a_h, double b_h,
 	}
 }
 
+/*
+** nemnoga(mnoga) govnokodinga && hardcodinga
+*/
+
 void	draw_polygon(t_bsp *bsp, t_player *player, t_doom *doom, int len)
 {
 	t_vector vect_a;
@@ -225,6 +229,9 @@ if ((pba <= 0 && angle_a >= 30) && (pba <= 0 && angle_b >= 30))
 	}
 }
 
+/*
+** BACK - TO - FRONT RENDERING STYLE
+*/
 void	recursive_draw(t_bsp *bsp, t_player *player, t_doom *doom)
 {
 	double len;
@@ -251,3 +258,22 @@ void	drawing_wall(t_doom *doom)
 {
 	recursive_draw(doom->bsp, doom->gg, doom);
 }
+
+/////////////////////////-->>FRONT-TO-BACK<<--///////////////////////////////////
+// void	recursive_draw(t_bsp *bsp, t_player *player, t_screen *scr_buf)
+// {
+// 	if (bsp->is_leaf)
+// 		return ;
+// 	if (dot_prod(bsp->node_form->norm.x, bsp->node_form->norm.y, player->x, player->y) - bsp->node_form->dist > 0)
+// 	{
+// 		recursive_draw(bsp->front, player, scr_buf);
+// 	printf("DRAW:%c\n", bsp->node_form->n);
+// 		recursive_draw(bsp->back, player, scr_buf);
+// 	}
+// 	else
+// 	{
+// 		recursive_draw(bsp->back, player, scr_buf);
+// 	printf("DRAW:%c\n", bsp->node_form->n);
+// 		recursive_draw(bsp->front, player, scr_buf);
+// 	}
+// }

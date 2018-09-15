@@ -55,9 +55,13 @@
 **	        		 \ /
 **
 ** note that every vector's {>a<|>b<|>c<|>d<} perpendicular normal line
-** looks at the right side!!	
+** looks at the right side!!
 */
 
+/*
+** dont copypaste my code, dude!
+** we both know this is a bull shit
+*/
 // # define WIDTH 320
 // # define HEIGHT 200
 // # define WIDTH 640

@@ -33,7 +33,10 @@ void	doom_prepare(t_doom **doom,int x,int y)
 	cp_doom->gg->normal_right = dot_prod(cp_doom->gg->x, cp_doom->gg->y, cp_doom->gg->view_right.x, cp_doom->gg->view_right.y);
 	cp_doom->gg->angle_coef = (float)WIDTH / (float)FOV;
 	cp_doom->gg->screen_coef = FOV / WIDTH;
-cp_doom->scr_buf = (t_screen*)malloc(sizeof(t_screen));//here malloc for t_screen?!?!?
+/*
+** here will be malloc for t_screen if I want to do front->to->back rendering style
+**/
+// cp_doom->scr_buf = (t_screen*)malloc(sizeof(t_screen));
 	*doom = cp_doom;
 }
 
@@ -113,8 +116,6 @@ void	make_forms(t_doom *doom)
 	doom->first_form = form;
 	doom->form_counter = 5;
 }
-
-//cube
 
 void	make_forms_2(t_doom *doom)
 {
