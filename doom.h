@@ -47,7 +47,7 @@
 **         A1_________|________B3
 **           \                 /
 **         >a<\               />c<
-**          <--\             /-->       <-"perpendicular" normals 
+**          <--\             /-->       <-"perpendicular" normalS
 **              \           /
 **	           B1\_________/A3
 **	        	 A2   |>b< B2
@@ -125,6 +125,7 @@ typedef struct		s_form
 	double			len;
 	t_vector		norm;
 	t_vert			vertex;
+int height;
 unsigned int	color;
 	struct s_form	*next;
 	t_vector		center;
