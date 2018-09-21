@@ -52,16 +52,12 @@
 **	           B1\_________/A3
 **	        	 A2   |>b< B2
 **	        		  |			<-perpendicular normal
-**	        		 \ /
+**	        		  \/
 **
 ** note that every vector's {>a<|>b<|>c<|>d<} perpendicular normal line
 ** looks at the right side!!
 */
 
-/*
-** dont copypaste my code, dude!
-** we both know this is a bull shit
-*/
 // # define WIDTH 320
 // # define HEIGHT 200
 // # define WIDTH 640
@@ -201,7 +197,10 @@ double				ft_tan(double angle);
 double				ft_cos(double angle);
 double				ft_sin(double angle);
 double				acos_degree(double c);
-double	t_cos(double a, double c, double angle);
+/*
+** cosin theorem
+*/
+double				t_cos(double a, double c, double angle);
 
 //additional functions::
 double				ft_min_d(double x, double y);

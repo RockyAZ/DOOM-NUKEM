@@ -19,6 +19,6 @@ SOURCE = main.c \
 			draw.c
 # drawing_wall.c			
 all:
-	gcc -g -o doom-nukem $(SOURCE) libft/libft.a -I./libft/ -I./Frameworks/SDL2.framework/Headers\
+	gcc -o doom-nukem $(SOURCE) libft/libft.a -I./libft/ -I./Frameworks/SDL2.framework/Headers\
 	 		   -I./Frameworks/SDL2_image.framework/Headers\
 				-rpath @loader_path/Frameworks -F./Frameworks/ -framework SDL2 -framework SDL2_image
