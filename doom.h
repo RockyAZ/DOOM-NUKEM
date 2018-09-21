@@ -78,7 +78,7 @@
 
 # define CENTER_W WIDTH / 2
 # define CENTER_H HEIGHT / 2
-# define WALL 32
+# define WALL 1
 # define FOV 60
 #define SCREEN (int)(CENTER_W / (tan((FOV / 2 * 2 * M_PI) / 360)))
 // #define SCREEN 277

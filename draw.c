@@ -83,7 +83,7 @@ double new_len_2;
 
 double check_a;
 double check_b;
-
+//заменить корни на квадраты ВЕЗДЕ!!!
 	vect_a = normalizing(bsp->node_form->vertex.x1 - player->x, bsp->node_form->vertex.y1 - player->y);
 	vect_b = normalizing(bsp->node_form->vertex.x2 - player->x, bsp->node_form->vertex.y2 - player->y);
 
