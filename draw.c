@@ -25,7 +25,6 @@ void	draw_line(t_doom *doom, int x, double h, t_form *form)
 	int y;
 	int j;
 
-
 	y = CENTER_H - h / 2;
 	j = CENTER_H + h / 2;
 	if (y < 0)
@@ -39,12 +38,18 @@ void	draw_line(t_doom *doom, int x, double h, t_form *form)
 	}
 }
 
-void	render_wall(t_form *form, double start, double end, double len_a, double len_b, t_doom *doom, double width)
+void	render_wall(t_player *player, t_form *form, double start, double end, double len_a, double len_b, t_doom *doom, double width)
 {
 	double var;
-	double pif_a;
-	
+	double pif_a_bot;
+	double pif_a_top;
+	double pif_b_bot;
+	double pif_b_top;
 
+	pif_a_bot = pifagor(len_a, player->z);
+	pif_a_top = pifagor(len_a, fabs(player->z - form->h));
+	pif_b_bot = pifagor(len_b, player->z);
+	pif_b_top = pifagor(len_b, fabs(player->z - form->h));
 	var = (a_h - b_h) / width;
 	while (start <= end)
 	{
@@ -138,13 +143,13 @@ if ((pba <= 0 && angle_a >= 30) && (pba <= 0 && angle_b >= 30))
 			pab = acos_degree((len_a * len_a + bsp->node_form->len * bsp->node_form->len - len_b * len_b) / (2 * len_a * bsp->node_form->len));
 			coef = bsp->node_form->len / coef;
 			new_len = t_cos(len_a, coef * (30 - angle_a), pab);
-			render_wall(bsp->node_form, CENTER_W + angle_a * player->angle_coef, WIDTH, len_a, new_len, doom, fabs(angle_a * player->angle_coef - 30 * player->angle_coef));
+			render_wall(player, bsp->node_form, CENTER_W + angle_a * player->angle_coef, WIDTH, len_a, new_len, doom, fabs(angle_a * player->angle_coef - 30 * player->angle_coef));
 		}
 		else
 		{
 			angle_a = angle_a * player->angle_coef;
 			angle_b = angle_b * player->angle_coef;
-			render_wall(bsp->node_form, CENTER_W + angle_a, CENTER_W + angle_b, len_a, len_b, doom, fabs(angle_b - angle_a));
+			render_wall(player, bsp->node_form, CENTER_W + angle_a, CENTER_W + angle_b, len_a, len_b, doom, fabs(angle_b - angle_a));
 		}
 	}
 /*
@@ -169,13 +174,13 @@ if ((pba <= 0 && angle_a >= 30) && (pba <= 0 && angle_b >= 30))
 			pab = acos_degree((len_a * len_a + bsp->node_form->len * bsp->node_form->len - len_b * len_b) / (2 * len_a * bsp->node_form->len));
 			coef = bsp->node_form->len / coef;
 			new_len = t_cos(len_a, coef * (angle_a - 30), pab);
-			render_wall(bsp->node_form, 0, CENTER_W - angle_b * player->angle_coef, new_len, len_b, doom, (30 - angle_b) * player->angle_coef);
+			render_wall(player, bsp->node_form, 0, CENTER_W - angle_b * player->angle_coef, new_len, len_b, doom, (30 - angle_b) * player->angle_coef);
 		}
 		else
 		{
 			angle_a = angle_a * player->angle_coef;
 			angle_b = angle_b * player->angle_coef;
-			render_wall(bsp->node_form, CENTER_W - angle_a, CENTER_W - angle_b, len_a, len_b, doom, fabs(angle_a - angle_b));
+			render_wall(player, bsp->node_form, CENTER_W - angle_a, CENTER_W - angle_b, len_a, len_b, doom, fabs(angle_a - angle_b));
 		}
 	}
 /*
@@ -202,14 +207,14 @@ if ((pba <= 0 && angle_a >= 30) && (pba <= 0 && angle_b >= 30))
 			coef = bsp->node_form->len / coef;
 /*len_a*/	new_len = t_cos(len_a, coef * (angle_a - 30), pab);
 /*len_b*/	new_len_2 = t_cos(len_b, coef * (angle_b - 30), pba);
-			render_wall(bsp->node_form, 0, WIDTH, new_len, new_len_2, doom, WIDTH);
+			render_wall(player, bsp->node_form, 0, WIDTH, new_len, new_len_2, doom, WIDTH);
 		}
 		else if (angle_a > 30)
 		{
 			pab = acos_degree((len_a * len_a + bsp->node_form->len * bsp->node_form->len - len_b * len_b) / (2 * len_a * bsp->node_form->len));
 			coef = bsp->node_form->len / coef;
 			new_len = t_cos(len_a, coef * (angle_a - 30), pab);
-			render_wall(bsp->node_form, 0, CENTER_W + angle_b * player->angle_coef, new_len, len_b, doom, 30 * player->angle_coef + angle_b * player->angle_coef);
+			render_wall(player, bsp->node_form, 0, CENTER_W + angle_b * player->angle_coef, new_len, len_b, doom, 30 * player->angle_coef + angle_b * player->angle_coef);
 		}
 		else if (angle_b > 30)
 		{
@@ -217,13 +222,13 @@ if ((pba <= 0 && angle_a >= 30) && (pba <= 0 && angle_b >= 30))
 
 			coef = bsp->node_form->len / coef;
 			new_len = t_cos(len_a, coef * (30 + angle_a), pab);
-			render_wall(bsp->node_form, CENTER_W - angle_a * player->angle_coef, WIDTH, len_a, new_len, doom, angle_a * player->angle_coef + 30 * player->angle_coef);
+			render_wall(player, bsp->node_form, CENTER_W - angle_a * player->angle_coef, WIDTH, len_a, new_len, doom, angle_a * player->angle_coef + 30 * player->angle_coef);
 		}
 		else
 		{
 			angle_a = angle_a * player->angle_coef;
 			angle_b = angle_b * player->angle_coef;
-			render_wall(bsp->node_form, CENTER_W - angle_a, CENTER_W + angle_b, len_a, len_b, doom, angle_a + angle_b);
+			render_wall(player, bsp->node_form, CENTER_W - angle_a, CENTER_W + angle_b, len_a, len_b, doom, angle_a + angle_b);
 		}
 	}
 }
