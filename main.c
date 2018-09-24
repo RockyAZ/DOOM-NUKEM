@@ -24,7 +24,7 @@ void	doom_prepare(t_doom **doom,int x,int y)
 	cp_doom->gg = (t_player*)malloc(sizeof(t_player));
 	cp_doom->gg->x = x;
 	cp_doom->gg->y = y;
-	cp_doom->gg->z = HEIGHT / 2;
+	cp_doom->gg->z = GG_H;
 	cp_doom->gg->view.x = 0;
 	cp_doom->gg->view.y = 1;
 	cp_doom->gg->normal = dot_prod(cp_doom->gg->x, cp_doom->gg->y, cp_doom->gg->view.x, cp_doom->gg->view.y);

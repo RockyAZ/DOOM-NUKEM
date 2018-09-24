@@ -45,11 +45,21 @@ void	render_wall(t_player *player, t_form *form, double start, double end, doubl
 	double pif_a_top;
 	double pif_b_bot;
 	double pif_b_top;
+/*
+** screen's points:
+*/
+	int a_bot;
+	int a_top;
+	int b_bot;
+	int b_top;
 
 	pif_a_bot = pifagor(len_a, player->z);
 	pif_a_top = pifagor(len_a, fabs(player->z - form->h));
 	pif_b_bot = pifagor(len_b, player->z);
 	pif_b_top = pifagor(len_b, fabs(player->z - form->h));
+
+	a_bot = 
+
 	var = (a_h - b_h) / width;
 	while (start <= end)
 	{
