@@ -78,6 +78,7 @@ void	make_forms(t_doom *doom)
 	form->vertex.x2 = 6;
 	form->vertex.y2 = 4;
 	form->color = RED;
+	form->h = 5;
 	form->n = 'A';
 
 	form->next = (t_form*)malloc(sizeof(t_form));
@@ -86,6 +87,7 @@ void	make_forms(t_doom *doom)
 	form->next->vertex.x2 = 3;
 	form->next->vertex.y2 = 5;
 	form->next->color = BLUE;
+	form->next->h = 6;
 	form->next->n = 'B';
 
 	form->next->next = (t_form*)malloc(sizeof(t_form));
@@ -94,6 +96,7 @@ void	make_forms(t_doom *doom)
 	form->next->next->vertex.x2 = 5;
 	form->next->next->vertex.y2 = 4;
 	form->next->next->color = GREEN;
+	form->next->next->h = 7;
 	form->next->next->n = 'C';
 
 	form->next->next->next = (t_form*)malloc(sizeof(t_form));
@@ -102,6 +105,7 @@ void	make_forms(t_doom *doom)
 	form->next->next->next->vertex.x2 = 5;
 	form->next->next->next->vertex.y2 = 6;
 	form->next->next->next->color = BLU;
+	form->next->next->next->h = 8;
 	form->next->next->next->n = 'D';
 
 	form->next->next->next->next = (t_form*)malloc(sizeof(t_form));
@@ -109,10 +113,10 @@ void	make_forms(t_doom *doom)
 	form->next->next->next->next->vertex.y1 = 3;
 	form->next->next->next->next->vertex.x2 = 1;
 	form->next->next->next->next->vertex.y2 = 5;
+	form->next->next->next->next->h = 9;
 	form->next->next->next->next->n = 'E';
 	form->next->next->next->next->color = PURPLE;
 	form->next->next->next->next->next = NULL;
-
 	doom->first_form = form;
 	doom->form_counter = 5;
 }
@@ -198,8 +202,8 @@ int	main(int ac, char **av)
 	doom->screen = SDL_CreateTexture(doom->ren, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, WIDTH, HEIGHT);
 	SDL_SetTextureBlendMode(doom->screen, SDL_BLENDMODE_BLEND);
 
-// make_forms(doom);
-make_forms_1(doom);
+make_forms(doom);
+// make_forms_1(doom);
 // make_forms_2(doom);
 	calc_forms(doom->first_form);
 	first_bsp(doom);
@@ -287,3 +291,8 @@ printf("%llu\n", rr);
   // }
   // // key_press_add(win->e.key.keysym.sym, win);  
   // }
+  
+
+
+
+  //SDL_UPDATE_SURFACE();

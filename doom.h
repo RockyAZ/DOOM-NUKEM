@@ -77,6 +77,9 @@
 # define GG_H HEIGHT / 2 + HEIGHT / 4
 # define WALL 1
 # define FOV 60
+/*
+** SCREEN->length between player position and projection plane
+*/
 #define SCREEN (int)(CENTER_W / (tan((FOV / 2 * 2 * M_PI) / 360)))
 // #define SCREEN 277
 
@@ -88,10 +91,10 @@
 # include <math.h>
 #include<stdio.h>
 #include<pthread.h>
+
 /*
 ** struct s_form aka POLYGON
 */
-
 typedef struct		s_vector
 {
 	double			x;
@@ -122,7 +125,8 @@ typedef struct		s_form
 	double			len;
 	t_vector		norm;
 	t_vert			vertex;
-int height;
+//int??
+double h;
 unsigned int	color;
 	struct s_form	*next;
 	t_vector		center;
@@ -161,7 +165,8 @@ typedef struct		s_player
 	// int				found_p;
 	double			x;
 	double			y;
-	int				z;
+//int??
+	double			z;
 	// int				angle;
 	// int				front;
 }					t_player;
