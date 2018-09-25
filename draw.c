@@ -21,7 +21,7 @@ unsigned int	get_pixel(SDL_Surface *surface, int x, int y)
 }
 
 void	draw_line(t_doom *doom, int x, int start, int end, t_form *form)
-{write(1, "a\n",2 );
+{
 	while (start < end)
 	{
 		doom->buffer[start][x] = form->color;
@@ -46,9 +46,6 @@ void	render_wall(t_player *player, t_form *form, double start, double end, doubl
 	double var_top;
 	double var_bot;
 
-	// double top;
-	// double bot;
-
 	pif_a_bot = pifagor(len_a, player->z);
 	pif_a_top = pifagor(len_a, fabs(player->z - form->h));
 	pif_b_bot = pifagor(len_b, player->z);
@@ -56,10 +53,10 @@ void	render_wall(t_player *player, t_form *form, double start, double end, doubl
 /*
 ** if len_a < SCREEN?????????
 */
-	a_bot = (len_a - SCREEN) * (pif_a_bot / len_a);
-	a_top = (len_a - SCREEN) * (pif_a_top / len_a);
-	b_bot = (len_b - SCREEN) * (pif_b_bot / len_b);
-	b_top = (len_b - SCREEN) * (pif_b_top / len_b);
+	a_bot = ((len_a * 64) - SCREEN) * (pif_a_bot / len_a);
+	a_top = ((len_a * 64) - SCREEN) * (pif_a_top / len_a);
+	b_bot = ((len_b * 64) - SCREEN) * (pif_b_bot / len_b);
+	b_top = ((len_b * 64) - SCREEN) * (pif_b_top / len_b);
 /*
 **	calculating variable for bot and top wall's height changes
 */
