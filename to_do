@@ -1,0 +1,20 @@
+- The floor and the ceiling have an adjustable height with unevenness
+between the different spaces.
+- The floor and ceiling must be able to be inclined.
+
+- There should be decorative elements on the walls, above the main texture.
+- There are sprites that always face the player as well as
+multi-sprites displayed according to the player's orientation, such as
+seeing a front, side or back character.
+
+- The items present may or may not be picked up and added to an inventory. (2 points)
+- Platform lift
+- Rocket launch animation + texture wall changes after hit
+- Opening door (changeable texture)
+-level editor.
+
+Anton
+- There must be partially transparent walls to see the space at the back. Room with any angle walls + correct textures
+Andrii
+- Ambient light must be present, affecting the walls and objects present.
+- It's possible to run, jump, fall, bend down and get up in a fluid way, fly. (3 points)

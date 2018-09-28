@@ -141,14 +141,15 @@ win->hy = 1;
 		else if (angle > 270 || angle < 90)
 			v = vertic_inter_right(win, angle);
 		set_param(win, v, h);
+		call_drawer(win, i, v, h);
 		if (some_line(win, v, h, angle, &win->line[0]))
-			casting_draw(win , i, ((double)CUBE / (double)pifagor(win, angle, 'l')) * win->gg.to_screen, 3);
+			casting_draw(win , i, ((double)CUBE / (double)pifagor(win, angle, 'l')) * win->gg.to_screen, -2);
 		else if (some_line(win, v, h, angle, &win->line[1]))
-			casting_draw(win , i, ((double)CUBE / (double)pifagor(win, angle, 'l')) * win->gg.to_screen, 3);
+			casting_draw(win , i, ((double)CUBE / (double)pifagor(win, angle, 'l')) * win->gg.to_screen, -2);
 		else if (some_line(win, v, h, angle, &win->line[2]))
-			casting_draw(win , i, ((double)CUBE / (double)pifagor(win, angle, 'l')) * win->gg.to_screen, 3);
-		else
-			call_drawer(win, i, v, h);
+			casting_draw(win , i, ((double)CUBE / (double)pifagor(win, angle, 'l')) * win->gg.to_screen, -2);
+		// else
+			// call_drawer(win, i, v, h);
 win->hy = 0;
 		angle -= win->gg.angle_size;
 	}

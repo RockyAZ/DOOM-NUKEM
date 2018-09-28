@@ -60,8 +60,10 @@ void	add_draw(t_main *win, int x, int y, int tex_x, int tex_y, int color)
 		else if ((win->ray.angle > 270 || win->ray.angle < 90) && win->v_is)
 			win->buffer[y][x] = get_pixel(win->img.tex[8], tex_x, tex_y);
 	}
+	else if (color == -2)
+		win->buffer[y][x] += 1056964671;
 	else
-			win->buffer[y][x] = get_pixel(win->img.tex[color], tex_x, tex_y);
+		win->buffer[y][x] = get_pixel(win->img.tex[color], tex_x, tex_y);
 			// printf("%d\n", get_pixel(win->img.tex[color], tex_x, tex_y));
 }
 
