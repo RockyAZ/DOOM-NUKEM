@@ -14,6 +14,7 @@
 # define DOOM_H
 
 /*
+** ABOUT BSP AND MAIN RENDERING ALGO
 ** VECTOR A-B -->normal to vector directed ONLY to right side, like this::
 ** 		B
 ** 		| 
@@ -40,7 +41,7 @@
 */
 
 /*
-** SIMPLE FIGURE LOOKS LIKE IT::
+** SIMPLE FIGURE LOOKS LIKE THIS::
 **
 **      			  ^        <-perpendicular normal
 **         B4         |  >d<    A4
@@ -74,7 +75,8 @@
 
 # define CENTER_W WIDTH / 2
 # define CENTER_H HEIGHT / 2
-# define GG_H HEIGHT / 2 + HEIGHT / 4
+// # define GG_H HEIGHT / 2 + HEIGHT / 4
+# define GG_H HEIGHT / 2
 # define WALL 1
 # define FOV 60
 /*

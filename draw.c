@@ -29,7 +29,7 @@ void	draw_line(t_doom *doom, int x, int start, int end, t_form *form)
 	}
 }
 
-void	render_wall(t_player *player, t_form *form, double start, double end, double len_a, double len_b, t_doom *doom, double width)
+void	render_wall(t_player *player, t_form *form, double x, double end, double len_a, double len_b, t_doom *doom, double width)
 {
 	double pif_a_bot;
 	double pif_a_top;
@@ -46,29 +46,31 @@ void	render_wall(t_player *player, t_form *form, double start, double end, doubl
 	double var_top;
 	double var_bot;
 
+	if (len_a <= SCREEN && len_b <= SCREEN)
+		return ;
 	pif_a_bot = pifagor(len_a, player->z);
 	pif_a_top = pifagor(len_a, fabs(player->z - form->h));
 	pif_b_bot = pifagor(len_b, player->z);
 	pif_b_top = pifagor(len_b, fabs(player->z - form->h));
 /*
-** if len_a < SCREEN?????????
+** if len_a < SCREEN?????????!!!!!!!!!!
 */
-	a_bot = ((len_a * 64) - SCREEN) * (pif_a_bot / len_a);
-	a_top = ((len_a * 64) - SCREEN) * (pif_a_top / len_a);
-	b_bot = ((len_b * 64) - SCREEN) * (pif_b_bot / len_b);
-	b_top = ((len_b * 64) - SCREEN) * (pif_b_top / len_b);
+	a_bot = (len_a - SCREEN) * (pif_a_bot / len_a);
+	a_top = (len_a - SCREEN) * (pif_a_top / len_a);
+	b_bot = (len_b - SCREEN) * (pif_b_bot / len_b);
+	b_top = (len_b - SCREEN) * (pif_b_top / len_b);
 /*
 **	calculating variable for bot and top wall's height changes
 */
 	var_bot = (a_bot - b_bot) / width;
-	var_top = (a_top - b_top) / width;
-	while (start <= end)
+	var_top = (a_top - b_top) / width;//???
+	while (x <= end)
 	{
-		if (start >= 0 && start <= WIDTH)
-			draw_line(doom, start, a_top, a_bot, form);
-		a_bot -= var_bot;
+		if (x >= 0 && x <= WIDTH && a_bot > 0 && a_bot < HEIGHT && a_top < HEIGHT && a_top > 0)
+			draw_line(doom, x, a_top, a_bot, form);
 		a_top -= var_top;
-		start++;
+		a_bot -= var_bot;
+		x++;
 	}
 }
 
