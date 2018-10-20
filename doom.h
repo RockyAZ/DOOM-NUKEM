@@ -77,6 +77,7 @@
 # define CENTER_H HEIGHT / 2
 // # define GG_H HEIGHT / 2 + HEIGHT / 4
 # define GG_H HEIGHT / 2
+// # define GG_H 100
 # define WALL 1
 # define FOV 60
 /*
@@ -92,7 +93,7 @@
 # include <fcntl.h>
 # include <math.h>
 #include<stdio.h>
-#include<pthread.h>
+// #include<pthread.h>
 
 /*
 ** struct s_form aka POLYGON

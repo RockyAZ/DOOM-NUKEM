@@ -73,46 +73,46 @@ void	make_forms(t_doom *doom)
 	t_form	*form;
 
 	form = (t_form*)malloc(sizeof(t_form));
-	form->vertex.x1 = 2;
-	form->vertex.y1 = 7;
-	form->vertex.x2 = 6;
-	form->vertex.y2 = 4;
+	form->vertex.x1 = 200;
+	form->vertex.y1 = 700;
+	form->vertex.x2 = 600;
+	form->vertex.y2 = 400;
 	form->color = RED;
 	form->h = 50;
 	form->n = 'A';
 
 	form->next = (t_form*)malloc(sizeof(t_form));
-	form->next->vertex.x1 = 1;
-	form->next->vertex.y1 = 1;
-	form->next->vertex.x2 = 3;
-	form->next->vertex.y2 = 5;
+	form->next->vertex.x1 = 100;
+	form->next->vertex.y1 = 100;
+	form->next->vertex.x2 = 300;
+	form->next->vertex.y2 = 500;
 	form->next->color = BLUE;
 	form->next->h = 60;
 	form->next->n = 'B';
 
 	form->next->next = (t_form*)malloc(sizeof(t_form));
-	form->next->next->vertex.x1 = 5;
-	form->next->next->vertex.y1 = 1;
-	form->next->next->vertex.x2 = 5;
-	form->next->next->vertex.y2 = 4;
+	form->next->next->vertex.x1 = 500;
+	form->next->next->vertex.y1 = 100;
+	form->next->next->vertex.x2 = 500;
+	form->next->next->vertex.y2 = 400;
 	form->next->next->color = GREEN;
 	form->next->next->h = 70;
 	form->next->next->n = 'C';
 
 	form->next->next->next = (t_form*)malloc(sizeof(t_form));
-	form->next->next->next->vertex.x1 = 3;
-	form->next->next->next->vertex.y1 = 8;
-	form->next->next->next->vertex.x2 = 5;
-	form->next->next->next->vertex.y2 = 6;
+	form->next->next->next->vertex.x1 = 300;
+	form->next->next->next->vertex.y1 = 800;
+	form->next->next->next->vertex.x2 = 500;
+	form->next->next->next->vertex.y2 = 600;
 	form->next->next->next->color = BLU;
 	form->next->next->next->h = 80;
 	form->next->next->next->n = 'D';
 
 	form->next->next->next->next = (t_form*)malloc(sizeof(t_form));
-	form->next->next->next->next->vertex.x1 = 1;
-	form->next->next->next->next->vertex.y1 = 3;
-	form->next->next->next->next->vertex.x2 = 1;
-	form->next->next->next->next->vertex.y2 = 5;
+	form->next->next->next->next->vertex.x1 = 100;
+	form->next->next->next->next->vertex.y1 = 300;
+	form->next->next->next->next->vertex.x2 = 100;
+	form->next->next->next->next->vertex.y2 = 500;
 	form->next->next->next->next->h = 90;
 	form->next->next->next->next->n = 'E';
 	form->next->next->next->next->color = PURPLE;
@@ -157,7 +157,7 @@ void	make_forms_2(t_doom *doom)
 	form->next->next->next->vertex.y1 = 1;
 	form->next->next->next->vertex.x2 = 1;
 	form->next->next->next->vertex.y2 = 1;
-	form->next->next->next->color = BLU;
+	form->next->next->next->color = YELLOW;
 	form->next->next->next->n = 'D';
 	form->next->next->next->next = NULL;
 	form->next->next->next->h = 80;
@@ -206,9 +206,9 @@ int	main(int ac, char **av)
 	doom->screen = SDL_CreateTexture(doom->ren, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, WIDTH, HEIGHT);
 	SDL_SetTextureBlendMode(doom->screen, SDL_BLENDMODE_BLEND);
 
-// make_forms(doom);
+make_forms(doom);
 // make_forms_1(doom);
-make_forms_2(doom);
+		// make_forms_2(doom);
 	calc_forms(doom->first_form);
 	first_bsp(doom);
 
@@ -230,13 +230,13 @@ rr++;
 		while (SDL_PollEvent(&doom->e))
 		{
 			if (doom->e.type == SDL_KEYDOWN && doom->e.key.keysym.sym == SDLK_w)
-				doom->gg->y += 1;
+				doom->gg->y += 10;
 			else if (doom->e.type == SDL_KEYDOWN && doom->e.key.keysym.sym == SDLK_s)
-				doom->gg->y -= 1;
+				doom->gg->y -= 10;
 			else if (doom->e.type == SDL_KEYDOWN && doom->e.key.keysym.sym == SDLK_d)
-				doom->gg->x += 1;
+				doom->gg->x += 10;
 			else if (doom->e.type == SDL_KEYDOWN && doom->e.key.keysym.sym == SDLK_a)
-				doom->gg->x -= 1;
+				doom->gg->x -= 10;
 			else if (doom->e.type == SDL_KEYDOWN && doom->e.key.keysym.sym == SDLK_RIGHT)
 			{
 				old = doom->gg->view.x;

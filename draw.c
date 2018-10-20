@@ -22,6 +22,7 @@ unsigned int	get_pixel(SDL_Surface *surface, int x, int y)
 
 void	draw_line(t_doom *doom, int x, int start, int end, t_form *form)
 {
+	// printf("_x:%d_start:%d_end:%d\n", x, start, end);
 	while (start < end)
 	{
 		doom->buffer[start][x] = form->color;
@@ -29,45 +30,55 @@ void	draw_line(t_doom *doom, int x, int start, int end, t_form *form)
 	}
 }
 
-void	render_wall(t_player *player, t_form *form, double x, double end, double len_a, double len_b, t_doom *doom, double width)
+void	render_wall(t_player *player, t_form *form, int x, int end, double len_a, double len_b, t_doom *doom, double width)
 {
-	double pif_a_bot;
-	double pif_a_top;
-	double pif_b_bot;
-	double pif_b_top;
 /*
 ** points on screen:
 */
-	int a_bot;
 	int a_top;
-	int b_bot;
+	int a_bot;
 	int b_top;
+	int b_bot;
 
 	double var_top;
 	double var_bot;
 
 	if (len_a <= SCREEN && len_b <= SCREEN)
 		return ;
-	pif_a_bot = pifagor(len_a, player->z);
-	pif_a_top = pifagor(len_a, fabs(player->z - form->h));
-	pif_b_bot = pifagor(len_b, player->z);
-	pif_b_top = pifagor(len_b, fabs(player->z - form->h));
 /*
 ** if len_a < SCREEN?????????!!!!!!!!!!
 */
-	a_bot = (len_a - SCREEN) * (pif_a_bot / len_a);
-	a_top = (len_a - SCREEN) * (pif_a_top / len_a);
-	b_bot = (len_b - SCREEN) * (pif_b_bot / len_b);
-	b_top = (len_b - SCREEN) * (pif_b_top / len_b);
+	a_top = CENTER_H + SCREEN * ((form->h - player->z) / len_a);
+	a_bot = CENTER_H - SCREEN * (player->z / len_a);
+	b_top = CENTER_H + SCREEN * ((form->h - player->z) / len_b);
+	b_bot = CENTER_H - SCREEN * (player->z / len_b);
 /*
 **	calculating variable for bot and top wall's height changes
 */
 	var_bot = (a_bot - b_bot) / width;
 	var_top = (a_top - b_top) / width;//???
-	while (x <= end)
+
+printf("this: %c\n", form->n);
+printf("PLAYER_x: %f\n", player->x);
+printf("PLAYER_y: %f\n", player->y);
+printf("x: %d\n", x);
+printf("end: %d\n", end);
+
+printf("WIDTH: %f\n", width);
+printf("len_a: %f\n", len_a);
+printf("len_b: %f\n", len_b);
+
+printf("a_top: %d\n", a_top);
+printf("a_bot: %d\n", a_bot);
+printf("b_top: %d\n", b_top);
+printf("b_bot: %d\n", b_bot);
+printf("var_top: %f\n", var_top);
+printf("var_bot: %f\n\n", var_bot);
+
+	while (x <= end - 1)
 	{
 		if (x >= 0 && x <= WIDTH && a_bot > 0 && a_bot < HEIGHT && a_top < HEIGHT && a_top > 0)
-			draw_line(doom, x, a_top, a_bot, form);
+			draw_line(doom, x, HEIGHT - a_top, HEIGHT - a_bot, form);
 		a_top -= var_top;
 		a_bot -= var_bot;
 		x++;
@@ -248,7 +259,7 @@ if ((pba <= 0 && angle_a >= 30) && (pba <= 0 && angle_b >= 30))
 }
 
 /*
-** BACK - TO - FRONT RENDERING STYLE
+** >BACK - TO - FRONT< RENDERING STYLE
 */
 void	recursive_draw(t_bsp *bsp, t_player *player, t_doom *doom)
 {
